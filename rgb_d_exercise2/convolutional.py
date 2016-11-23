@@ -46,7 +46,7 @@ SEED = 66478  # Set to None for random seed.
 BATCH_SIZE = 32
 NUM_EPOCHS = 30 
 EVAL_BATCH_SIZE = 1024
-EVAL_FREQUENCY = 100  # Number of steps between evaluations.
+EVAL_FREQUENCY = 15 # Number of steps between evaluations.
 # This is where the data gets stored
 TRAIN_DIR = 'data'
 # HINT:
@@ -112,6 +112,8 @@ def main(argv=None):  # pylint: disable=unused-argument
 
   train_size = train_labels.shape[0]
 
+  test_this_model_after_training = True
+
   # TODO:
   # After this you should define your network and train it.
   # Below you find some starting hints. For more info have
@@ -159,55 +161,52 @@ def main(argv=None):  # pylint: disable=unused-argument
                           strides=[1, 2, 2, 1], padding='SAME')
   
 
-  W_conv1 = weight_variable([5, 5, 3, 32])
-  b_conv1 = bias_variable([32])
+  def getNetwork(data_node, labels_node):
+    W_conv1 = weight_variable([5, 5, 3, 32])
+    b_conv1 = bias_variable([32])
 
-  x_image = tf.reshape(train_data_node, [-1,32,32,3])
+    x_image = tf.reshape(data_node, [-1,32,32,3])
 
-  h_conv1 = tf.nn.relu(conv2d(x_image, W_conv1) + b_conv1)
-  h_pool1 = max_pool_2x2(h_conv1)
+    h_conv1 = tf.nn.relu(conv2d(x_image, W_conv1) + b_conv1)
+    h_pool1 = max_pool_2x2(h_conv1)
 
-  W_conv2 = weight_variable([5, 5, 32, 64])
-  b_conv2 = bias_variable([64])
+    W_conv2 = weight_variable([5, 5, 32, 64])
+    b_conv2 = bias_variable([64])
 
-  h_conv2 = tf.nn.relu(conv2d(h_pool1, W_conv2) + b_conv2)
-  h_pool2 = max_pool_2x2(h_conv2)
+    h_conv2 = tf.nn.relu(conv2d(h_pool1, W_conv2) + b_conv2)
+    h_pool2 = max_pool_2x2(h_conv2)
 
-  W_fc1 = weight_variable([8*8* 64, 1024])
-  b_fc1 = bias_variable([1024])
+    W_fc1 = weight_variable([8*8* 64, 1024])
+    b_fc1 = bias_variable([1024])
 
-  h_pool2_flat = tf.reshape(h_pool2, [-1, 8*8*64])
-  h_fc1 = tf.nn.relu(tf.matmul(h_pool2_flat, W_fc1) + b_fc1)
+    h_pool2_flat = tf.reshape(h_pool2, [-1, 8*8*64])
+    h_fc1 = tf.nn.relu(tf.matmul(h_pool2_flat, W_fc1) + b_fc1)
 
-  #keep_prob = tf.placeholder(tf.float32)
-  #h_fc1_drop = tf.nn.dropout(h_fc1, keep_prob)
+    #keep_prob = tf.placeholder(tf.float32)
+    #h_fc1_drop = tf.nn.dropout(h_fc1, keep_prob)
 
-  W_fc2 = weight_variable([1024, NUM_LABELS])
-  b_fc2 = bias_variable([NUM_LABELS])
+    W_fc2 = weight_variable([1024, NUM_LABELS])
+    b_fc2 = bias_variable([NUM_LABELS])
 
-  y_conv = tf.matmul(h_fc1, W_fc2) + b_fc2
-  y_conv = tf.Print(y_conv, [y_conv], message="Haaaallooooo ")
+    y_conv = tf.matmul(h_fc1, W_fc2) + b_fc2
+    y_conv = tf.Print(y_conv, [y_conv], message="Haaaallooooo ")
+    loss = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(y_conv, tf.one_hot(labels_node, NUM_LABELS, on_value=1, off_value=0)))
 
-  # TODO DONE
+    # TODO
+    # then create an optimizer to train the model
+    # HINT: you can use the various optimizers implemented in TensorFlow.
+    #       For example, google for: tf.train.AdamOptimizer()
+    # TODO
+    step = tf.train.AdamOptimizer(1e-4).minimize(loss)
+    correct_prediction = tf.equal(tf.argmax(y_conv,1), labels_node)
+    return step, correct_prediction
 
-  # TODO
-  # compute the loss of the model here
-  # TODO
-
-  loss = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(y_conv, tf.one_hot(train_labels_node, NUM_LABELS, on_value=1, off_value=0)))
-
-  # TODO
-  # then create an optimizer to train the model
-  # HINT: you can use the various optimizers implemented in TensorFlow.
-  #       For example, google for: tf.train.AdamOptimizer()
-  # TODO
-  train_step = tf.train.AdamOptimizer(1e-4).minimize(loss)
   # TODO
   # Make sure you also define a function for evaluating on the validation
   # set so that you can track performance over time
   # TODO
-  correct_prediction = tf.equal(tf.argmax(y_conv,1), train_labels_node)
-  accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
+  train_step, train_correct_prediction = getNetwork(train_data_node, train_labels_node)
+  accuracy = tf.reduce_mean(tf.cast(train_correct_prediction, tf.float32))
 
 
   #input = input_data.read_data_sets(FLAGS.data_dir, one_hot=True)
@@ -218,17 +217,31 @@ def main(argv=None):  # pylint: disable=unused-argument
   # TODO
   sess = tf.InteractiveSession()
   sess.run(tf.initialize_all_variables())
-  y_conv = tf.Print(y_conv, [y_conv], message="Haaaallooooo ")
   
-  for i in range(10):
+
+  for i in range(50):
     train_data_batch = train_data[i*BATCH_SIZE:(i+1)*BATCH_SIZE]
     train_labels_batch = train_labels[i*BATCH_SIZE:(i+1)*BATCH_SIZE]
-  #sess.run(train_step, feed_dict={train_data_node: batch_xs, train_labels_node: batch_ys})
     sess.run(train_step, feed_dict={train_data_node: train_data_batch, train_labels_node: train_labels_batch})
+    if i % EVAL_FREQUENCY == 0:
+      k = i / EVAL_FREQUENCY
+      validation_data_batch = validation_data[k*EVAL_BATCH_SIZE:(k+1)*EVAL_BATCH_SIZE]
+      validation_labels_batch = validation_labels[k*EVAL_BATCH_SIZE:(k+1)*EVAL_BATCH_SIZE]
+      val_accuracy = tf.reduce_mean(tf.cast(train_correct_prediction, tf.float32))
+      print("Validation : ", sess.run(accuracy, feed_dict={train_data_node: validation_data_batch, train_labels_node: validation_labels_batch}))
+
+      test_data_batch = test_data[k*EVAL_BATCH_SIZE:(k+1)*EVAL_BATCH_SIZE]
+      test_labels_batch = test_labels[k*EVAL_BATCH_SIZE:(k+1)*EVAL_BATCH_SIZE]
+      test_accuracy = tf.reduce_mean(tf.cast(train_correct_prediction, tf.float32))
+      print("Test : ", sess.run(accuracy, feed_dict={train_data_node: test_data_batch, train_labels_node: test_labels_batch}))
 
   # Test trained model
-  accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
-  print(sess.run(accuracy, feed_dict={train_data_node: test_data, train_labels_node: test_labels}))
+  #test_accuracy = tf.reduce_mean(tf.cast(train_correct_prediction, tf.float32))
+  #print(sess.run(accuracy, feed_dict={train_data_node: test_data, train_labels_node: test_labels}))
+
+  #val_accuracy = tf.reduce_mean(tf.cast(train_correct_prediction, tf.float32))
+  #print(sess.run(accuracy, feed_dict={train_data_node: validation_data, train_labels_node: validation_labels}))
+
   # Loop through training steps here
   # HINT: always use small batches for training (as in SGD in your last exercise)
   # WARNING: The dataset does contain quite a few images if you want to test something quickly
@@ -237,9 +250,6 @@ def main(argv=None):  # pylint: disable=unused-argument
   # for step in max_steps:
   # Hint: make sure to evaluate your model every once in a while
   # For example like so:
-  if random.randint(1, 100) < 10:
-    print('Minibatch loss: {}'.format(loss))
-    print('Validation error: {}'.format(validation_error_you_computed))
   
   # Finally, after the training! calculate the test result!
   # WARNING: You should never use the test result to optimize
@@ -247,11 +257,15 @@ def main(argv=None):  # pylint: disable=unused-argument
   # overfitting. Only calculate the test error in the very end for your best model!
 
   if test_this_model_after_training:
-    print('Test error: {}'.format(test_error))
+    """
+    test_accuracy = tf.reduce_mean(tf.cast(train_correct_prediction, tf.float32))
+    print("Test error final : ", sess.run(accuracy, feed_dict={train_data_node: test_data, train_labels_node: test_labels}))
+    #print('Test error: {}'.format(test_error))
     print('Confusion matrix:') 
     # NOTE: the following will require scikit-learn
     print(confusion_matrix(test_labels, numpy.argmax(eval_in_batches(test_data, sess), 1)))
-  pass
+    """
+    pass
 
 if __name__ == '__main__':
   parser = argparse.ArgumentParser()
