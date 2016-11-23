@@ -31,7 +31,7 @@ import sklearn
 from six.moves import urllib
 from six.moves import xrange  # pylint: disable=redefined-builtin
 import tensorflow as tf
-#from sklearn.metrics import confusion_matrix
+from sklearn.metrics import confusion_matrix
 
 import input_data
 
@@ -44,9 +44,9 @@ IMAGE_SIZE = 32
 NUM_LABELS = 10
 SEED = 66478  # Set to None for random seed.
 BATCH_SIZE = 32
-NUM_EPOCHS = 30 
+NUM_EPOCHS = 180
 EVAL_BATCH_SIZE = 1024
-EVAL_FREQUENCY = 15 # Number of steps between evaluations.
+EVAL_FREQUENCY = 24 # Number of steps between evaluations.
 # This is where the data gets stored
 TRAIN_DIR = 'data'
 # HINT:
@@ -201,6 +201,7 @@ def main(argv=None):  # pylint: disable=unused-argument
     correct_prediction = tf.equal(tf.argmax(y_conv,1), labels_node)
     return step, correct_prediction
 
+
   # TODO
   # Make sure you also define a function for evaluating on the validation
   # set so that you can track performance over time
@@ -219,7 +220,7 @@ def main(argv=None):  # pylint: disable=unused-argument
   sess.run(tf.initialize_all_variables())
   
 
-  for i in range(50):
+  for i in range(NUM_EPOCHS):
     train_data_batch = train_data[i*BATCH_SIZE:(i+1)*BATCH_SIZE]
     train_labels_batch = train_labels[i*BATCH_SIZE:(i+1)*BATCH_SIZE]
     sess.run(train_step, feed_dict={train_data_node: train_data_batch, train_labels_node: train_labels_batch})
@@ -257,15 +258,13 @@ def main(argv=None):  # pylint: disable=unused-argument
   # overfitting. Only calculate the test error in the very end for your best model!
 
   if test_this_model_after_training:
-    """
-    test_accuracy = tf.reduce_mean(tf.cast(train_correct_prediction, tf.float32))
-    print("Test error final : ", sess.run(accuracy, feed_dict={train_data_node: test_data, train_labels_node: test_labels}))
-    #print('Test error: {}'.format(test_error))
-    print('Confusion matrix:') 
-    # NOTE: the following will require scikit-learn
-    print(confusion_matrix(test_labels, numpy.argmax(eval_in_batches(test_data, sess), 1)))
-    """
     pass
+    #test_accuracy = tf.reduce_mean(tf.cast(train_correct_prediction, tf.float32))
+    #print("Test error final : ", sess.run(accuracy, feed_dict={train_data_node: test_data, train_labels_node: test_labels}))
+    #print('Test error: {}'.format(test_error))
+    #print('Confusion matrix:') 
+    # NOTE: the following will require scikit-learn
+    #print(confusion_matrix(test_labels, numpy.argmax(eval_in_batches(test_data, sess), 1)))
 
 if __name__ == '__main__':
   parser = argparse.ArgumentParser()
