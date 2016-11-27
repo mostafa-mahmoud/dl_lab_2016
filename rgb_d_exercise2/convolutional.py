@@ -44,9 +44,11 @@ IMAGE_SIZE = 32
 NUM_LABELS = 10
 SEED = 66478  # Set to None for random seed.
 BATCH_SIZE = 32
-NUM_EPOCHS = 180
+NUM_EPOCHS = (27999 // BATCH_SIZE) + 1
 EVAL_BATCH_SIZE = 1024
-EVAL_FREQUENCY = 24 # Number of steps between evaluations.
+EVAL_FREQUENCY = (NUM_EPOCHS - 1) // (5413 // EVAL_BATCH_SIZE) # Number of steps between evaluations.
+TEST_BATCH_SIZE = 512
+TEST_N_EPOCH = (6321 // TEST_BATCH_SIZE) + 1
 # This is where the data gets stored
 TRAIN_DIR = 'data'
 # HINT:
@@ -162,34 +164,41 @@ def main(argv=None):  # pylint: disable=unused-argument
   
 
   def getNetwork(data_node, labels_node):
-    W_conv1 = weight_variable([5, 5, 3, 32])
-    b_conv1 = bias_variable([32])
-
     x_image = tf.reshape(data_node, [-1,32,32,3])
 
-    h_conv1 = tf.nn.relu(conv2d(x_image, W_conv1) + b_conv1)
+    N0, N1, N2 = 64, 128, 32
+    W_conv0 = weight_variable([5, 5, 3, N0])
+    b_conv0 = bias_variable([N0])
+
+    h_conv0 = tf.nn.relu(conv2d(x_image, W_conv0) + b_conv0)
+    h_pool0 = max_pool_2x2(h_conv0)
+    #h_pool0 = x_image
+
+    W_conv1 = weight_variable([5, 5, N0, N1])
+    b_conv1 = bias_variable([N1])
+
+    h_conv1 = tf.nn.relu(conv2d(h_pool0, W_conv1) + b_conv1)
     h_pool1 = max_pool_2x2(h_conv1)
 
-    W_conv2 = weight_variable([5, 5, 32, 64])
-    b_conv2 = bias_variable([64])
+    W_conv2 = weight_variable([5, 5, N1, N2])
+    b_conv2 = bias_variable([N2])
 
     h_conv2 = tf.nn.relu(conv2d(h_pool1, W_conv2) + b_conv2)
     h_pool2 = max_pool_2x2(h_conv2)
 
-    W_fc1 = weight_variable([8*8* 64, 1024])
+    W_fc1 = weight_variable([4*4* N2, 1024])
+    #W_fc1 = weight_variable([8*8* N2, 1024])
     b_fc1 = bias_variable([1024])
 
-    h_pool2_flat = tf.reshape(h_pool2, [-1, 8*8*64])
+    h_pool2_flat = tf.reshape(h_pool2, [-1, 4*4*N2])
+    #h_pool2_flat = tf.reshape(h_pool2, [-1, 8*8*N2])
     h_fc1 = tf.nn.relu(tf.matmul(h_pool2_flat, W_fc1) + b_fc1)
-
-    #keep_prob = tf.placeholder(tf.float32)
-    #h_fc1_drop = tf.nn.dropout(h_fc1, keep_prob)
 
     W_fc2 = weight_variable([1024, NUM_LABELS])
     b_fc2 = bias_variable([NUM_LABELS])
 
     y_conv = tf.matmul(h_fc1, W_fc2) + b_fc2
-    y_conv = tf.Print(y_conv, [y_conv], message="Haaaallooooo ")
+    #y_conv = tf.Print(y_conv, [y_conv], message="Haaaallooooo ")
     loss = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(y_conv, tf.one_hot(labels_node, NUM_LABELS, on_value=1, off_value=0)))
 
     # TODO
@@ -220,21 +229,28 @@ def main(argv=None):  # pylint: disable=unused-argument
   sess.run(tf.initialize_all_variables())
   
 
-  for i in range(NUM_EPOCHS):
-    train_data_batch = train_data[i*BATCH_SIZE:(i+1)*BATCH_SIZE]
-    train_labels_batch = train_labels[i*BATCH_SIZE:(i+1)*BATCH_SIZE]
-    sess.run(train_step, feed_dict={train_data_node: train_data_batch, train_labels_node: train_labels_batch})
-    if i % EVAL_FREQUENCY == 0:
-      k = i / EVAL_FREQUENCY
-      validation_data_batch = validation_data[k*EVAL_BATCH_SIZE:(k+1)*EVAL_BATCH_SIZE]
-      validation_labels_batch = validation_labels[k*EVAL_BATCH_SIZE:(k+1)*EVAL_BATCH_SIZE]
-      val_accuracy = tf.reduce_mean(tf.cast(train_correct_prediction, tf.float32))
-      print("Validation : ", sess.run(accuracy, feed_dict={train_data_node: validation_data_batch, train_labels_node: validation_labels_batch}))
+  print("Beginning training...")
+  for _ in range(3):
+    for i in range(NUM_EPOCHS):
+      train_data_batch = train_data[i*BATCH_SIZE:(i+1)*BATCH_SIZE]
+      train_labels_batch = train_labels[i*BATCH_SIZE:(i+1)*BATCH_SIZE]
+      sess.run(train_step, feed_dict={train_data_node: train_data_batch, train_labels_node: train_labels_batch})
+      if i % EVAL_FREQUENCY == 0:
+        k = int(i // EVAL_FREQUENCY)
+        validation_data_batch = validation_data[k*EVAL_BATCH_SIZE:(k+1)*EVAL_BATCH_SIZE]
+        validation_labels_batch = validation_labels[k*EVAL_BATCH_SIZE:(k+1)*EVAL_BATCH_SIZE]
+        #print("Validation %d to %d of size %d" % (k*EVAL_BATCH_SIZE, (k+1) * EVAL_BATCH_SIZE, len(validation_data_batch)))
+        val_accuracy = tf.reduce_mean(tf.cast(train_correct_prediction, tf.float32))
+        print("Validation : ", sess.run(accuracy, feed_dict={train_data_node: validation_data_batch, train_labels_node: validation_labels_batch}))
+    train = zip(train_data, train_labels)
+    numpy.random.shuffle(train)
+    train_data, train_labels = zip(*train)
 
-      test_data_batch = test_data[k*EVAL_BATCH_SIZE:(k+1)*EVAL_BATCH_SIZE]
-      test_labels_batch = test_labels[k*EVAL_BATCH_SIZE:(k+1)*EVAL_BATCH_SIZE]
-      test_accuracy = tf.reduce_mean(tf.cast(train_correct_prediction, tf.float32))
-      print("Test : ", sess.run(accuracy, feed_dict={train_data_node: test_data_batch, train_labels_node: test_labels_batch}))
+    evaluation = zip(validation_data, validation_labels)
+    numpy.random.shuffle(evaluation)
+    validation_data, validation_labels = zip(*evaluation)
+
+  print("Finishing training...")
 
   # Test trained model
   #test_accuracy = tf.reduce_mean(tf.cast(train_correct_prediction, tf.float32))
@@ -258,7 +274,19 @@ def main(argv=None):  # pylint: disable=unused-argument
   # overfitting. Only calculate the test error in the very end for your best model!
 
   if test_this_model_after_training:
-    pass
+    errors = []
+    for i in range(TEST_N_EPOCH):
+      test_data_batch = test_data[i*TEST_BATCH_SIZE:(i+1)*TEST_BATCH_SIZE]
+      test_labels_batch = test_labels[i*TEST_BATCH_SIZE:(i+1)*TEST_BATCH_SIZE]
+      errors.append(sess.run(accuracy, feed_dict={train_data_node: test_data_batch, train_labels_node: test_labels_batch}))
+    print("Testing: ", numpy.mean(errors))
+
+    #val_accuracy = tf.reduce_mean(tf.cast(train_correct_prediction, tf.float32))
+    #print(sess.run(accuracy, feed_dict={train_data_node: validation_data, train_labels_node: validation_labels}))
+    #test_data_batch = test_data[k*EVAL_BATCH_SIZE:(k+1)*EVAL_BATCH_SIZE]
+    #test_labels_batch = test_labels[k*EVAL_BATCH_SIZE:(k+1)*EVAL_BATCH_SIZE]
+    #test_accuracy = tf.reduce_mean(tf.cast(train_correct_prediction, tf.float32))
+    #print("Test : ", sess.run(accuracy, feed_dict={train_data_node: test_data_batch, train_labels_node: test_labels_batch}))
     #test_accuracy = tf.reduce_mean(tf.cast(train_correct_prediction, tf.float32))
     #print("Test error final : ", sess.run(accuracy, feed_dict={train_data_node: test_data, train_labels_node: test_labels}))
     #print('Test error: {}'.format(test_error))

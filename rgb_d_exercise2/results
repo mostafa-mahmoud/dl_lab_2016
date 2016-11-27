@@ -1,0 +1,35 @@
+****** RGBD_10 dataset ******
+* Input: RGB                *
+* Channels: 3               *
+*****************************
+train set: ['apple_1', 'apple_2', 'apple_3', 'apple_4', 'bowl_1', 'bowl_3', 'bowl_5', 'bowl_6', 'cereal_box_1', 'cereal_box_2', 'cereal_box_3', 'coffee_mug_1', 'coffee_mug_2', 'coffee_mug_3', 'coffee_mug_4', 'coffee_mug_6', 'coffee_mug_7', 'flashlight_1', 'flashlight_2', 'flashlight_5', 'lemon_1', 'lemon_2', 'lemon_3', 'lemon_4', 'plate_2', 'plate_3', 'plate_4', 'plate_5', 'plate_6', 'soda_can_1', 'soda_can_2', 'soda_can_3', 'soda_can_4', 'stapler_1', 'stapler_2', 'stapler_3', 'stapler_4', 'stapler_7', 'stapler_8', 'tomato_1', 'tomato_2', 'tomato_3', 'tomato_4', 'tomato_5', 'tomato_6']
+Number of datapoints train : 27999
+validation set: ['bowl_4', 'cereal_box_5', 'coffee_mug_5', 'flashlight_3', 'lemon_5', 'plate_1', 'soda_can_5', 'stapler_5', 'tomato_7']
+Number of datapoints validation : 5413
+test set: ['apple_5', 'bowl_2', 'cereal_box_4', 'coffee_mug_8', 'flashlight_4', 'lemon_6', 'plate_7', 'soda_can_6', 'stapler_6', 'tomato_8']
+Number of datapoints test : 6321
+Loading rgb 27999 images from data/images
+Loading rgb 5413 images from data/images
+Loading rgb 6321 images from data/images
+Finished dataset creation
+Beginning training...
+Validation :  0.105469
+Validation :  0.811523
+Validation :  0.838867
+Validation :  0.865234
+Validation :  0.868164
+Validation :  0.877133
+Validation :  0.863281
+Validation :  0.879883
+Validation :  0.905273
+Validation :  0.94043
+Validation :  0.900391
+Validation :  0.914676
+Validation :  0.901367
+Validation :  0.939453
+Validation :  0.932617
+Validation :  0.927734
+Validation :  0.922852
+Validation :  0.94198
+Finishing training...
+Testing:  0.916574
