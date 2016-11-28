@@ -32,8 +32,8 @@
 %% Uncomment PNASone for single column articles. One column class
 %% and style files are available upon request from pnas@nas.edu.
 
-%\documentclass{pnasone}
-\documentclass{pnastwo}
+\documentclass[a4paper]{article}
+%\documentclass{pnastwo}
 
 %------------------------------------------------
 % POSITION OF TEXT
@@ -70,20 +70,6 @@
 \usepackage{algorithmic}
 \usepackage{algorithm2e}
 
-%------------------------------------------------
-% OPTIONAL POSTSCRIPT FONT FILES
-%------------------------------------------------
-
-%% PostScript font files: You may need to edit the PNASoneF.sty
-%% or PNAStwoF.sty file to make the font names match those on your system. 
-%% Alternatively, you can leave the font style file commands commented out
-%% and typeset your article using the default Computer Modern 
-%% fonts (recommended). If accepted, your article will be typeset
-%% at PNAS using PostScript fonts.
-
-% Choose PNASoneF for one column; PNAStwoF for two column:
-%\usepackage{PNASoneF}
-%\usepackage{PNAStwoF}
 
 %------------------------------------------------
 % ADDITIONAL OPTIONAL STYLE FILES
@@ -104,19 +90,6 @@
 %\newcommand{\mfrac}[2]{\frac{\displaystyle #1}{\displaystyle #2}}
 %\def\s{\sigma}
 
-%------------------------------------------------
-% DO NOT EDIT THIS SECTION
-%------------------------------------------------
-
-%% For PNAS Only:
-\contributor{}
-\url{http://arxiv.org/abs/1210.1193}
-\copyrightyear{2012}
-%\issuedate{Issue Date}
-%\volume{Volume}
-%\issuenumber{Issue Number}
-
-%----------------------------------------------------------------------------------------
 
 \begin{document}
 
@@ -124,35 +97,10 @@
 %	TITLE AND AUTHORS
 %----------------------------------------------------------------------------------------
 
-\title{Report on Machine Learning Lab} % For titles, only capitalize the first letter
+\title{Report on Machine Learning Lab, Ex 2} % For titles, only capitalize the first letter
 
-%------------------------------------------------
 
-%% Enter authors via the \author command.  
-%% Use \affil to define affiliations.
-%% (Leave no spaces between author name and \affil command)
-
-%% Note that the \thanks{} command has been disabled in favor of
-%% a generic, reserved space for PNAS publication footnotes.
-
-%% \author{<author name>
-%% \affil{<number>}{<Institution>}} One number for each institution.
-%% The same number should be used for authors that
-%% are affiliated with the same institution, after the first time
-%% only the number is needed, ie, \affil{number}{text}, \affil{number}{}
-%% Then, before last author ...
-%% \and
-%% \author{<author name>
-%% \affil{<number>}{}}
-
-%% For example, assuming Garcia and Sonnery are both affiliated with
-%% Universidad de Murcia:
-%% \author{Roberta Graff\affil{1}{University of Cambridge, Cambridge,
-%% United Kingdom},
-%% Javier de Ruiz Garcia\affil{2}{Universidad de Murcia, Bioquimica y Biologia
-%% Molecular, Murcia, Spain}, \and Franklin Sonnery\affil{2}{}}
-
-\author{Mostafa Mohamed, Omar Kassem\affil{1}{Alberts-Ludwig Universt\"at Freiburg}}
+\author{Mostafa Mohamed, Omar Kassem}%\affil{1}{Alberts-Ludwig Universt\"at Freiburg}}
 %James Smith\affil{2}{University of Oregon}
 %\and
 %Jane Smith\affil{1}{}}
@@ -163,127 +111,29 @@
 
 \maketitle % The \maketitle command is necessary to build the title page
 
-\begin{article}
+%\begin{article}
 
 %----------------------------------------------------------------------------------------
 %	ABSTRACT, KEYWORDS AND ABBREVIATIONS
 %----------------------------------------------------------------------------------------
 
-\begin{abstract}
-Abstract
-\end{abstract}
-
-%------------------------------------------------
-
-%\keywords{Keyword1 | Keyword2 | Keyword3} % When adding keywords, separate each term with a straight line: |
-
-%------------------------------------------------
-
-%% Optional for entering abbreviations, separate the abbreviation from
-%% its definition with a comma, separate each pair with a semicolon:
-%% for example:
-%% \abbreviations{SAM, self-assembled monolayer; OTS,
-%% octadecyltrichlorosilane}
-
-% \abbreviations{}
-%\abbreviations{SAM, self-assembled monolayer; OTS, octadecyltrichlorosilane}
-
-%----------------------------------------------------------------------------------------
-%	PUBLICATION CONTENT
-%----------------------------------------------------------------------------------------
-
-%% The first letter of the article should be drop cap: \dropcap{} e.g.,
-%\dropcap{I}n this article we study the evolution of ''almost-sharp'' fronts
+%\begin{abstract}
+%Abstract
+%\end{abstract}
 
 \section{Introduction}
-\dropcap{T}his is a report.
+This is a report about the deep learning lab. 
 
-\section{Preliminaries}
-\begin{definition}
-A undirected graph $G = (V, E)$, where $V$ is a set of nodes and $E$ is a set of edges. We denote $n = \| V \|$ and $m = \| E \|$.
-\end{definition}
-\subsection{remarks}
+\section{Data}
 
-\section{Previous algorithms}
-\subsection{algorithm 1}
+\section{Tensorflow}
+Tensorflow is an opensource software for running large computations on different GPUs using.
 
+\section{Architecture}
+We used a convolutional neural network of 3 layers.
 
-\section{Presented algorithm}
-Algorithm.
-\begin{algorithm}[H]
-\begin{algorithmic}[1]
-\STATE{$x = 0$}
-\WHILE{$True$}
-\STATE{$x = x + 1$}
-\ENDWHILE
-\end{algorithmic}
-\caption{Infinite loop}
-\label{alg:seq}
-\end{algorithm}
-
-\subsection{Analysis}
-
-\subsection{Lemma}
-\begin{itemize}
-\item lemma1
-\end{itemize}
-
-\subsection{Proof}
-The proof is done by induction on the number of iterations $i$.
-
-\subsection{Correctness and Complexity}
-
-
-\subsection{Extensions}
-We can extend 
-\newline
-{\bf Theorem} {\it theorem}
-
-\section{Conclusions}
-The paper presents a deterministic, efficient, intuitive and robust algorithm, with strong analysis.
-
-
-%----------------------------------------------------------------------------------------
-%	MATERIALS AND METHODS
-%----------------------------------------------------------------------------------------
-
-%% Optional Materials and Methods Section
-%% The Materials and Methods section header will be added automatically.
-
-%----------------------------------------------------------------------------------------
-%	BIBLIOGRAPHY
-%----------------------------------------------------------------------------------------
-
-%% PNAS does not support submission of supporting .tex files such as BibTeX.
-%% Instead all references must be included in the article .tex document. 
-%% If you currently use BibTeX, your bibliography is formed because the 
-%% command \verb+\bibliography{}+ brings the <filename>.bbl file into your
-%% .tex document. To conform to PNAS requirements, copy the reference listings
-%% from your .bbl file and add them to the article .tex file, using the
-%% bibliography environment described above.  
-
-%%  Contact pnas@nas.edu if you need assistance with your
-%%  bibliography.
-
-% Sample bibliography item in PNAS format:
-%% \bibitem{in-text reference} comma-separated author names up to 5,
-%% for more than 5 authors use first author last name et al. (year published)
-%% article title  {\it Journal Name} volume #: start page-end page.
-%% ie,
-% \bibitem{Neuhaus} Neuhaus J-M, Sitcher L, Meins F, Jr, Boller T (1991) 
-% A short C-terminal sequence is necessary and sufficient for the
-% targeting of chitinases to the plant vacuole. 
-% {\it Proc Natl Acad Sci USA} 88:10362-10366.
-
-
-%% Enter the largest bibliography number in the facing curly brackets
-%% following \begin{thebibliography}
-
-%\begin{thebibliography}{1}
-
-%----------------------------------------------------------------------------------------
-
-\end{article}
+\section{Results}
+We tried running on the data, we got an accuracy of 91\%
 
 %----------------------------------------------------------------------------------------
 %	FIGURES AND TABLES
