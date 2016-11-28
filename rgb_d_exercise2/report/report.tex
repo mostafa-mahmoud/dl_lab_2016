@@ -122,18 +122,19 @@
 %\end{abstract}
 
 \section{Introduction}
-This is a report about the deep learning lab. 
+This is a report about the deep learning lab, exercise 2. The general task of this assignment was to use Tensorflow to implement a convolutional neural network to train it on labelling images. As well as, trying different architectures for the network and different sizes.
 
 \section{Data}
+The training data set that consists of nearly 28,000 images, that mostly contain a lot of images about some objects; for each object we have similar images but with variants in some features, like brightness, color, the viewing angle. Then we used a validation data set of nearly 5,400 images and a testing data set of nearly 6,100 images.
 
 \section{Tensorflow}
-Tensorflow is an opensource software for running large computations on different GPUs using.
+Tensorflow is a machine learning opensource software library (developed by Google) for running large computations on data flow graphs. It's architecture allows parallel computation on different GPUs. It also provides a variety of control statements over data flow graphs.
 
 \section{Architecture}
-We used a convolutional neural network of 3 layers.
+We used a convolutional neural network of 2 layers in some tests and 3 layers in some other tests, we tried a variety of number of neurons in layers. This 3rd layer has shown an improvement on some of the results. All the datasets were batched, and in some of the runs we tried to shuffle some of the training data sets before batching in order to avoid overfitting.
 
 \section{Results}
-We tried running on the data, we got an accuracy of 91\%
+We tried training the network using 2 layers sometimes and 3 layers some other times, we present here a plot of the results for each of them when we run on 3 channels(RGB) and 4 channels(RGBD).
 
 %----------------------------------------------------------------------------------------
 %	FIGURES AND TABLES
@@ -149,10 +150,25 @@ We tried running on the data, we got an accuracy of 91\%
 %% \caption{Almost Sharp Front}\label{afoto}
 %% \end{figure}
 
-%% \begin{figure}[h]
-%% \centerline{\includegraphics[width=0.4\linewidth]{placeholder.jpg}}
-%% \caption{Figure caption}\label{placeholder}
-%% \end{figure}
+\begin{figure}[h]
+\centerline{\includegraphics[width=0.4\linewidth]{2L3C.png}}
+\caption{2 Layers, 3 Channels, Accuracy: 89\%}\label{placeholder}
+\end{figure}
+
+\begin{figure}[h]
+\centerline{\includegraphics[width=0.4\linewidth]{2L4C.png}}
+\caption{2 Layers, 4 Channels, Accuracy: 91\%}\label{placeholder}
+\end{figure}
+
+\begin{figure}[h]
+\centerline{\includegraphics[width=0.4\linewidth]{3L3C.png}}
+\caption{3 Layers, 3 Channels, Accuracy: 92\%}\label{placeholder}
+\end{figure}
+
+\begin{figure}[h]
+\centerline{\includegraphics[width=0.4\linewidth]{3L4C.png}}
+\caption{3 Layers, 4 Channels, 87\%}\label{placeholder}
+\end{figure}
 
 %% For Tables, put caption above table
 %%
