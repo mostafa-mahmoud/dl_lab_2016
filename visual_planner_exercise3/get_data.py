@@ -31,6 +31,7 @@ for step in range(opt.data_steps):
         state = sim.step() # will perform A* actions
 
     # save data & label
+    # TODO: Critical!! Save data and and labels
     states[step, :] = rgb2gray(state.pob).reshape(opt.state_siz)
     labels[step]    = state.action
 
