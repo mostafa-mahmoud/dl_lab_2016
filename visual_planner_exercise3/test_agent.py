@@ -81,14 +81,23 @@ def main(opt):
             plt.draw()
 
     # 2. calculate statistics
-    print(float(nepisodes_solved) / float(nepisodes))
+    accuracy = float(nepisodes_solved) / float(nepisodes)
+    print(accuracy)
+    return accuracy
 
 import get_data
 import train_agent 
 
+# 3. TODO perhaps  do some additional analysis
 if __name__ == '__main__':
-    # 3. TODO perhaps  do some additional analysis
     opt = Options()
     get_data.main(opt)
     train_agent.main(opt)
     main(opt)
+
+    #for history_len in xrange(2, 10):
+        #opt.hist_len = history_len
+        #get_data.main(opt)
+        #train_agent.main(opt)
+        #accuracy = sum(main(opt) for _ in xrange(20)) / 20.
+        #print("History Length %d :: accuracy %d" % (history_len, accuracy))

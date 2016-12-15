@@ -14,7 +14,9 @@ from transitionTable import TransitionTable
 #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 # 0. initialization
-def main(opt):
+def main(opt=None):
+    if not opt:
+        opt = Options()
     sim = Simulator(opt.map_ind, opt.cub_siz, opt.pob_siz, opt.act_num)
     trans = TransitionTable(opt.state_siz, opt.act_num, opt.hist_len,
                                  opt.minibatch_size, opt.valid_size,
@@ -107,5 +109,4 @@ def main(opt):
     print("Saved model to disk")
 
 if __name__ == '__main__':
-    opt = Options()
-    main(opt)
+    main()

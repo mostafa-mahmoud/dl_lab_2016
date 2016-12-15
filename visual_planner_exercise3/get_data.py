@@ -6,6 +6,8 @@ from simulator import Simulator
 
 # 0. initialization
 def main(opt):
+    if not opt:
+        opt = Options()
     sim = Simulator(opt.map_ind, opt.cub_siz, opt.pob_siz, opt.act_num)
     states = np.zeros([opt.data_steps, opt.state_siz], float)
     labels = np.zeros([opt.data_steps], int)
@@ -61,5 +63,4 @@ def main(opt):
     print("labels saved to " + opt.labels_fil)
 
 if __name__ == '__main__':
-    opt = Options()
-    main(opt)
+    main()
