@@ -42,18 +42,32 @@ from keras.layers.convolutional import Convolution1D
 from keras.optimizers import SGD
 from keras.models import Sequential
 from keras.layers.core import Activation
+from keras.layers.core import Dense
 
 # inp_shape = (10, 32)
 
-def define_model(inp_shape, neurons=[64, 128, 5]):
+def define_model(inp_shape):
   model = Sequential()
-  layers = len(neurons)
-  model.add(Convolution1D(neurons[0], 3, border_mode='same', input_shape=inp_shape))
-  for i in xrange(1, layers - 1):
-    model.add(Convolution1D(neurons[i], 3, border_mode='same'))
-    model.add(Activation("relu"))
+  #input Layer
+  model.add(Convolution1D(64, 3, border_mode='same', input_shape=inp_shape))
+  model.add(Activation("relu"))
+  
+  #Hidden Layers
+  model.add(Convolution1D(32, 3, border_mode='same'))
+  model.add(Activation("relu"))
 
-  model.add(Convolution1D(neurons[-1], 3, border_mode='same'))
+  model.add(Convolution1D(64, 3, border_mode='same'))
+  model.add(Activation("relu"))
+
+  #model.add(Dense(64))
+  #model.add(Activation("tanh"))
+
+  #model.add(Dense(64))
+  #model.add(Activation("relu"))
+
+
+  # Output layer
+  model.add(Convolution1D(opt.act_num, 3, border_mode='same'))
   model.add(Activation("softmax"))
 
   model.compile(loss='categorical_crossentropy', optimizer='sgd', metrics=['accuracy'])
@@ -61,17 +75,18 @@ def define_model(inp_shape, neurons=[64, 128, 5]):
 
 cnn_astar_mimic = define_model((1, opt.state_siz * opt.hist_len))
 
-for i in xrange(opt.n_minibatches):
-  X_batch, Y_batch = trans.sample_minibatch()
-  X_batch = X_batch.reshape(opt.minibatch_size, 1, opt.state_siz * opt.hist_len)
-  Y_batch = Y_batch.reshape(opt.minibatch_size, 1, opt.act_num)
-  cnn_astar_mimic.train_on_batch(X_batch, Y_batch)
+for _ in xrange(50):
+  for i in xrange(opt.n_minibatches):
+    X_batch, Y_batch = trans.sample_minibatch()
+    X_batch = X_batch.reshape(opt.minibatch_size, 1, opt.state_siz * opt.hist_len)
+    Y_batch = Y_batch.reshape(opt.minibatch_size, 1, opt.act_num)
+    cnn_astar_mimic.train_on_batch(X_batch, Y_batch)
 
-X_val, Y_val = trans.get_valid()
-X_val = X_val.reshape((opt.valid_size, 1, opt.state_siz * opt.hist_len))
-Y_val = Y_val.reshape((opt.valid_size, 1, opt.act_num))
-loss_and_metrics = cnn_astar_mimic.evaluate(X_val, Y_val, batch_size=opt.minibatch_size)
-    
+  X_val, Y_val = trans.get_valid()
+  X_val = X_val.reshape((opt.valid_size, 1, opt.state_siz * opt.hist_len))
+  Y_val = Y_val.reshape((opt.valid_size, 1, opt.act_num))
+  loss_and_metrics = cnn_astar_mimic.evaluate(X_val, Y_val, batch_size=opt.minibatch_size)
+      
 
 # 2. save your trained model
 
