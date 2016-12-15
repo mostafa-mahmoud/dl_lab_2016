@@ -49,8 +49,8 @@ for step in range(opt.eval_steps):
         #print state.pob.shape
         #print rgb2gray(state.pob).shape
 
-        current_state = rgb2gray(state.pob).reshape(1, 1, opt.state_siz)
-        X_test = trans.get_recent().reshape(1, 1, opt.state_siz * opt.hist_len)
+        current_state = rgb2gray(state.pob).reshape(1, opt.state_siz)
+        X_test = trans.get_recent().reshape(1, opt.state_siz * opt.hist_len)
         action = agent.predict(X_test, opt.minibatch_size)
         action = np.argmax(action)
         print(action)
