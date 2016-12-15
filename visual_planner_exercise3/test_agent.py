@@ -2,15 +2,23 @@ import numpy as np
 import matplotlib.pyplot as plt
 from random import randrange
 # custom modules
-from utils     import Options
+from utils     import Options, rgb2gray
 from simulator import Simulator
+from transitionTable import TransitionTable
+from keras.models import model_from_json
 
 # 0. initialization
 opt = Options()
 sim = Simulator(opt.map_ind, opt.cub_siz, opt.pob_siz, opt.act_num)
+# FIXME Check if needed
+trans = TransitionTable(opt.state_siz, opt.act_num, opt.hist_len,
+                             opt.minibatch_size, opt.valid_size,
+                             opt.states_fil, opt.labels_fil)
 
 # TODO: load your agent
-agent =None
+agent = model_from_json(open(opt.network_fil, 'r').read())
+agent.load_weights(opt.weights_fil)
+print('Loaded model from disk')
 
 # 1. control loop
 if opt.disp_on:
@@ -38,10 +46,17 @@ for step in range(opt.eval_steps):
         # TODO: here you would let your agent take its action
         #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         # this just gets a random action
-        action = randrange(opt.act_num)
-        state = sim.step(action)
+        #print state.pob.shape
+        #print rgb2gray(state.pob).shape
 
+        current_state = rgb2gray(state.pob).reshape(1, 1, opt.state_siz)
+        X_test = trans.get_recent().reshape(1, 1, opt.state_siz * opt.hist_len)
+        action = agent.predict(X_test, opt.minibatch_size)
+        action = np.argmax(action)
+        print(action)
+        state = sim.step(action)
         epi_step += 1
+        trans.add_recent(epi_step, current_state)
 
     if state.terminal or epi_step >= opt.early_stop:
         epi_step = 0

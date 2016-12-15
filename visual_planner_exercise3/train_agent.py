@@ -45,33 +45,29 @@ from keras.layers.core import Activation
 
 # inp_shape = (10, 32)
 
-def define_model(inp_shape, neurons=[64, 32]):
+def define_model(inp_shape, neurons=[64, 128, 5]):
   model = Sequential()
   layers = len(neurons)
   model.add(Convolution1D(neurons[0], 3, border_mode='same', input_shape=inp_shape))
-  for i in xrange(1, layers):
+  for i in xrange(1, layers - 1):
     model.add(Convolution1D(neurons[i], 3, border_mode='same'))
     model.add(Activation("relu"))
+
+  model.add(Convolution1D(neurons[-1], 3, border_mode='same'))
+  model.add(Activation("softmax"))
 
   model.compile(loss='categorical_crossentropy', optimizer='sgd', metrics=['accuracy'])
   return model
 
-print((opt.state_siz,1))
-cnn_astar_mimic = define_model((opt.state_siz,1))
+cnn_astar_mimic = define_model((1, opt.state_siz * opt.hist_len))
 
-for i in xrange(opt.minibatch_size):
+for i in xrange(opt.n_minibatches):
   X_batch, Y_batch = trans.sample_minibatch()
-  print(X_batch.shape, Y_batch.shape)
-  print(Y_batch)
-  X_batch = X_batch.reshape(opt.minibatch_size, 1, -1)
-  Y_batch = Y_batch.reshape(opt.minibatch_size, 1, -1)
-  print (opt.minibatch_size)
-  print(X_batch.shape)
-  # yp = cnn_astar_mimic.predict(x)
-  # cnn_astar_mimic.fit(X_train, Y_train, nb_epoch=5, batch_size=32)
+  X_batch = X_batch.reshape(opt.minibatch_size, 1, opt.state_siz * opt.hist_len)
+  Y_batch = Y_batch.reshape(opt.minibatch_size, 1, 5)
   cnn_astar_mimic.train_on_batch(X_batch, Y_batch)
 
-loss_and_metrics = model.evaluate(X_test, Y_test, batch_size=opt.minibatch_size)
+# loss_and_metrics = cnn_astar_mimic.evaluate(X_test, Y_test, batch_size=opt.minibatch_size)
     
 
 # 2. save your trained model
