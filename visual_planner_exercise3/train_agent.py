@@ -44,18 +44,22 @@ from keras.models import Sequential
 from keras.layers.core import Activation
 from keras.layers.core import Dense, Flatten, Reshape
 
-# inp_shape = (10, 32)
 
 def define_model(inp_shape):
   model = Sequential()
   #input Layer
+  #model.add(Reshape((1,) + inp_shape, input_shape=inp_shape))
   #model.add(Convolution1D(64, 3, border_mode='same', input_shape=inp_shape))
-  model.add(Dense(64, input_shape=inp_shape))
-  model.add(Activation('relu'))
+  model.add(Reshape(inp_shape, input_shape=inp_shape))
 
+  model.add(Dense(64))
+  model.add(Activation("relu"))
 
   #Hidden Layers
-  model.add(Reshape((1, 64)))
+  model.add(Dense(128))
+  model.add(Activation("relu"))
+
+  model.add(Reshape((1, 128)))
 
   model.add(Convolution1D(64, 3, border_mode='same'))
   model.add(Activation("relu"))
@@ -86,13 +90,9 @@ cnn_astar_mimic = define_model((opt.state_siz * opt.hist_len,))
 for _ in xrange(50):
   for i in xrange(opt.n_minibatches):
     X_batch, Y_batch = trans.sample_minibatch()
-    X_batch = X_batch.reshape(opt.minibatch_size, opt.state_siz * opt.hist_len)
-    Y_batch = Y_batch.reshape(opt.minibatch_size, opt.act_num)
     cnn_astar_mimic.train_on_batch(X_batch, Y_batch)
 
   X_val, Y_val = trans.get_valid()
-  X_val = X_val.reshape((opt.valid_size, opt.state_siz * opt.hist_len))
-  Y_val = Y_val.reshape((opt.valid_size, opt.act_num))
   loss_and_metrics = cnn_astar_mimic.evaluate(X_val, Y_val, batch_size=opt.minibatch_size)
       
 
