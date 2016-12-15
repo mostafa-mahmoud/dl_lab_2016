@@ -50,9 +50,13 @@ def define_model(inp_shape):
   model = Sequential()
   #input Layer
   model.add(Convolution1D(64, 3, border_mode='same', input_shape=inp_shape))
+  #model.add(Dense(64, input_shape=(inp_shape[-1],)))
+  model.add(Activation('relu'))
+  #Hidden Layers
+
+  model.add(Convolution1D(64, 3, border_mode='same'))
   model.add(Activation("relu"))
   
-  #Hidden Layers
   model.add(Convolution1D(32, 3, border_mode='same'))
   model.add(Activation("relu"))
 
