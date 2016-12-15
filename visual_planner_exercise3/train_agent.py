@@ -64,10 +64,13 @@ cnn_astar_mimic = define_model((1, opt.state_siz * opt.hist_len))
 for i in xrange(opt.n_minibatches):
   X_batch, Y_batch = trans.sample_minibatch()
   X_batch = X_batch.reshape(opt.minibatch_size, 1, opt.state_siz * opt.hist_len)
-  Y_batch = Y_batch.reshape(opt.minibatch_size, 1, 5)
+  Y_batch = Y_batch.reshape(opt.minibatch_size, 1, opt.act_num)
   cnn_astar_mimic.train_on_batch(X_batch, Y_batch)
 
-# loss_and_metrics = cnn_astar_mimic.evaluate(X_test, Y_test, batch_size=opt.minibatch_size)
+X_val, Y_val = trans.get_valid()
+X_val = X_val.reshape((opt.valid_size, 1, opt.state_siz * opt.hist_len))
+Y_val = Y_val.reshape((opt.valid_size, 1, opt.act_num))
+loss_and_metrics = cnn_astar_mimic.evaluate(X_val, Y_val, batch_size=opt.minibatch_size)
     
 
 # 2. save your trained model
