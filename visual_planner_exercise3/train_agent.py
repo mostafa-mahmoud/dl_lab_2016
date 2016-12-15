@@ -2,9 +2,17 @@ import numpy as np
 import tensorflow as tf
 
 # custom modules
+import get_data
 from utils     import Options
 from simulator import Simulator
 from transitionTable import TransitionTable
+
+from keras.layers.convolutional import Convolution1D
+from keras.optimizers import SGD
+from keras.models import Sequential
+from keras.layers.core import Activation
+from keras.layers.core import Dense, Flatten, Reshape
+
 
 #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 # NOTE:
@@ -17,6 +25,7 @@ from transitionTable import TransitionTable
 def main(opt=None):
     if not opt:
         opt = Options()
+    get_data.main(opt)
     sim = Simulator(opt.map_ind, opt.cub_siz, opt.pob_siz, opt.act_num)
     trans = TransitionTable(opt.state_siz, opt.act_num, opt.hist_len,
                                  opt.minibatch_size, opt.valid_size,
@@ -39,13 +48,6 @@ def main(opt=None):
 
     train_data = trans.get_train()
     valid_data = trans.get_valid()
-
-    from keras.layers.convolutional import Convolution1D
-    from keras.optimizers import SGD
-    from keras.models import Sequential
-    from keras.layers.core import Activation
-    from keras.layers.core import Dense, Flatten, Reshape
-
 
     def define_model(inp_shape):
         model = Sequential()

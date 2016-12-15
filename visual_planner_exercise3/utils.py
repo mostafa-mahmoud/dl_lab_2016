@@ -2,8 +2,8 @@ import numpy as np
 
 class Options:
     #
-    disp_on = True # you might want to set it to False for speed
-    map_ind = 2
+    disp_on = False # you might want to set it to False for speed
+    map_ind = 0
     change_tgt = False
     states_fil = "states.csv"
     labels_fil = "labels.csv"
@@ -11,7 +11,7 @@ class Options:
     weights_fil = "network.h5"
     # simulator config
     disp_interval = .005
-    if map_ind == 0 or map_ind == 2:
+    if map_ind == 0:
         cub_siz = 5
         pob_siz = 5 # for partial observation
         # this defines the goal positionw
@@ -25,6 +25,13 @@ class Options:
         tgt_y = 5
         tgt_x = 5
         early_stop = 75
+    elif map_ind == 2:
+        cub_siz = 5
+        pob_siz = 5 # for partial observation
+        # this defines the goal positionw
+        tgt_y = 12
+        tgt_x = 11
+        early_stop = 50
     state_siz = (pob_siz * cub_siz) ** 2 # when use pob as input
     if change_tgt:
         tgt_y = None

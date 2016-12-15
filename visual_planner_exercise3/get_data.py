@@ -5,7 +5,7 @@ from utils     import Options, rgb2gray
 from simulator import Simulator
 
 # 0. initialization
-def main(opt):
+def main(opt=None):
     if not opt:
         opt = Options()
     sim = Simulator(opt.map_ind, opt.cub_siz, opt.pob_siz, opt.act_num)

@@ -91,9 +91,9 @@ import train_agent
 # 3. TODO perhaps  do some additional analysis
 if __name__ == '__main__':
     opt = Options()
-    get_data.main(opt)
     train_agent.main(opt)
-    main(opt)
+    for _ in xrange(10):
+        main(opt)
 
     #for history_len in xrange(2, 10):
         #opt.hist_len = history_len
