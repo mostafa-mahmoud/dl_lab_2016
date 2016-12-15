@@ -50,13 +50,12 @@ for step in range(opt.eval_steps):
         #print rgb2gray(state.pob).shape
 
         current_state = rgb2gray(state.pob).reshape(1, opt.state_siz)
-        X_test = trans.get_recent().reshape(1, opt.state_siz * opt.hist_len)
+        trans.add_recent(epi_step, current_state)
+        X_test = trans.get_recent()
         action = agent.predict(X_test, opt.minibatch_size)
         action = np.argmax(action)
-        print(action)
         state = sim.step(action)
         epi_step += 1
-        trans.add_recent(epi_step, current_state)
 
     if state.terminal or epi_step >= opt.early_stop:
         epi_step = 0
