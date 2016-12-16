@@ -150,6 +150,15 @@ We tried different configuration for the running.
 
 \end{itemize}
 
+\section{Improvements}
+To improve the results we can try to train with different strategies.
+\begin{itemize}
+\item Train the agent on a several target locations, with a slightly longer history and/or larger view. We believe that this will improve the results on a given map, because the agent will get a better grasp of how the map looks like generally and how deadends look like also, and won't be fixed on a specific target point. However this will need much more training, because the agent can get confused easily if it was trained poorly on different targets, because the target's area isn't that relevant that much since it can change usually.
+
+\item We can have a slightly different strategy for storing history that can for example store the locations visited previously so it will learn the nogood areas (then we just store the nogood areas), while finding the target, hence accumulating failing experience, and try not to repeat bad areas to reach the target. This should show a potential improvement.
+
+\end{itemize}
+
 %----------------------------------------------------------------------------------------
 %	FIGURES AND TABLES
 %----------------------------------------------------------------------------------------
