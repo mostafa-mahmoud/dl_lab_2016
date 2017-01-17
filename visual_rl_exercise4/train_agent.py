@@ -101,12 +101,15 @@ loss = Q_loss(Q, u, Qn, ustar, r, term)
 # setup an optimizer in tensorflow to minimize the loss
 """
     
+# TODO: Check if in opts
+PR_EPSILON = 0.4
 # lets assume we will train for a total of 1 million steps
 # this is just an example and you might want to change it
 steps = 1 * 10**6
 epi_step = 0
 nepisodes = 0
 
+cnn_model = None # TODO: Initialize cnn model
 state = sim.newGame(opt.tgt_y, opt.tgt_x)
 state_with_history = np.zeros((opt.hist_len, opt.state_siz))
 append_to_hist(state_with_history, rgb2gray(state.pob).reshape(opt.state_siz))
@@ -126,7 +129,11 @@ for step in xrange(steps):
     #       remember
     #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     # this just gets a random action
-    action = randrange(opt.act_num)
+    if random.random() < PR_EPSILON:
+        # TODO: Action a maximizes Q(s,a)
+        action = argmax()
+    else:
+        action = randrange(opt.act_num)
     action_onehot = trans.one_hot_action(action)
     next_state = sim.step(action)
     # append to history
@@ -140,10 +147,12 @@ for step in xrange(steps):
     # TODO: here you would train your agent
     #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     state_batch, action_batch, next_state_batch, reward_batch, terminal_batch = trans.sample_minibatch()
+    cnn_model.train_on_batch(state_batch, next_state_batch)
     # TODO train me here
     # this should proceed as follows:
     # 1) pre-define variables and networks as outlined above
     # 1) here: calculate best action for next_state_batch
+
     # TODO:
     # action_batch_next = CALCULATE_ME
     # 2) with that action make an update to the q values
@@ -167,5 +176,12 @@ for step in xrange(steps):
 
 
 # 2. perform a final test of your model and save it
-# TODO
+# TODO. done.
 
+# serialize model to JSON
+model_json = cnn_model.to_json()
+with open(opt.network_fil, "w") as json_file:
+    json_file.write(model_json)
+# serialize weights to HDF5
+cnn_model.save_weights(opt.weights_fil)
+print("Saved model to disk")
