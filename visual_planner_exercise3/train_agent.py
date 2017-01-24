@@ -13,13 +13,67 @@ from keras.models import Sequential
 from keras.layers.core import Activation
 from keras.layers.core import Dense, Flatten, Reshape
 
-
 #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 # NOTE:
 # this script assumes you did generate your data with the get_data.py script
 # you are of course allowed to change it and generate data here but if you
 # want this to work out of the box first run get_data.py
 #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
+def define_model(inp_shape):
+  model = Sequential()
+  #input Layer
+  #model.add(Reshape((1,) + inp_shape, input_shape=inp_shape))
+  #model.add(Convolution1D(64, 3, border_mode='same', input_shape=inp_shape))
+  model.add(Reshape(inp_shape, input_shape=inp_shape))
+
+  model.add(Dense(64))
+  model.add(Activation("relu"))
+
+  #Hidden Layers
+  model.add(Dense(128))
+  model.add(Activation("relu"))
+
+  model.add(Reshape((1, 128)))
+
+  model.add(Convolution1D(64, 3, border_mode='same'))
+  model.add(Activation("relu"))
+  
+  model.add(Convolution1D(32, 3, border_mode='same'))
+  model.add(Activation("relu"))
+
+  model.add(Convolution1D(64, 3, border_mode='same'))
+  model.add(Activation("relu"))
+
+  #model.add(Dense(64))
+  #model.add(Activation("tanh"))
+
+  #model.add(Dense(64))
+  #model.add(Activation("relu"))
+
+  # Output layer
+  model.add(Convolution1D(opt.act_num, 3, border_mode='same'))
+  model.add(Activation("softmax"))
+
+  model.add(Reshape((opt.act_num,)))
+
+  model.compile(loss='categorical_crossentropy', optimizer='sgd', metrics=['accuracy'])
+  return model
+
+cnn_astar_mimic = define_model((opt.state_siz * opt.hist_len,))
+
+for _ in xrange(50):
+  for i in xrange(opt.n_minibatches):
+    X_batch, Y_batch = trans.sample_minibatch()
+    cnn_astar_mimic.train_on_batch(X_batch, Y_batch)
+
+  X_val, Y_val = trans.get_valid()
+  loss_and_metrics = cnn_astar_mimic.evaluate(X_val, Y_val, batch_size=opt.minibatch_size)
+      
+
+# 2. save your trained model
+>>>>>>> 4d3ac488b57cd475dcc00b34bc88fa7f9919e853
 
 # 0. initialization
 def main(opt=None):

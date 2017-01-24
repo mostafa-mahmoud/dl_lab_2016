@@ -49,13 +49,13 @@ def main(opt):
             #print state.pob.shape
             #print rgb2gray(state.pob).shape
 
-            current_state = rgb2gray(state.pob).reshape(1, opt.state_siz)
-            trans.add_recent(epi_step, current_state)
-            X_test = trans.get_recent()
-            action = agent.predict(X_test, opt.minibatch_size)
-            action = np.argmax(action)
-            state = sim.step(action)
-            epi_step += 1
+        current_state = rgb2gray(state.pob).reshape(1, opt.state_siz)
+        trans.add_recent(epi_step, current_state)
+        X_test = trans.get_recent()
+        action = agent.predict(X_test, opt.minibatch_size)
+        action = np.argmax(action)
+        state = sim.step(action)
+        epi_step += 1
 
         if state.terminal or epi_step >= opt.early_stop:
             epi_step = 0
