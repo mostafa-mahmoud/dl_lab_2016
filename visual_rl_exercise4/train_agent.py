@@ -26,33 +26,6 @@ from keras.layers.core import Dense, Flatten, Reshape
 # you can copy this into your agent class or use it from here
 #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-def loss_util(Q_s, action_onehot, Q_s_next, best_action_next, reward, terminal, discount=0.99):
-    """
-    All inputs should be tensorflow variables!
-    We use the following notation:
-       N : minibatch size
-       A : number of actions
-    Required inputs:
-       Q_s: a NxA matrix containing the Q values for each action in the sampled states.
-            This should be the output of your neural network.
-            We assume that the network implments a function from the state and outputs the 
-            Q value for each action, each output thus is Q(s,a) for one action 
-            (this is easier to implement than adding the action as an additional input to your network)
-       action_onehot: a NxA matrix with the one_hot encoded action that was selected in the state
-                      (e.g. each row contains only one 1)
-       Q_s_next: a NxA matrix containing the Q values for the next states.
-       best_action_next: a NxA matrix with the best current action for the next state
-       reward: a Nx1 matrix containing the reward for the transition
-       terminal: a Nx1 matrix indicating whether the next state was a terminal state
-       discount: the discount factor
-    """
-    # calculate: reward + discount * Q(s', a*),
-    target_q = (1. - terminal) * discount * tf.reduce_sum(best_action_next * Q_s_next, 1, keep_dims=True) + reward
-    # NOTE: we insert a stop_gradient() operation since we don't want to change Q_s_next, we only
-    #       use it as the target for Q_s
-    target_q = tf.stop_gradient(target_q)
-    return target_q
-
 def Q_loss(Q_s, action_onehot, Q_s_next, best_action_next, reward, terminal, discount=0.99):
     """
     All inputs should be tensorflow variables!
@@ -75,11 +48,11 @@ def Q_loss(Q_s, action_onehot, Q_s_next, best_action_next, reward, terminal, dis
     """
     # calculate: reward + discount * Q(s', a*),
     # where a* = arg max_a Q(s', a) is the best action for s' (the next state)
-    #target_q = (1. - terminal) * discount * tf.reduce_sum(best_action_next * Q_s_next, 1, keep_dims=True) + reward
+    print(best_action_next, Q_s_next)
+    target_q = (1. - terminal) * discount * tf.reduce_sum(best_action_next * Q_s_next, 1, keep_dims=True) + reward
     # NOTE: we insert a stop_gradient() operation since we don't want to change Q_s_next, we only
     #       use it as the target for Q_s
-    #target_q = tf.stop_gradient(target_q)
-    target_q = loss_util(Q_s, action_onehot, Q_s_next, best_action_next, reward, terminal, discount)
+    target_q = tf.stop_gradient(target_q)
     # calculate: Q(s, a) where a is simply the action taken to get from s to s'
     selected_q = tf.reduce_sum(action_onehot * Q_s, 1, keep_dims=True)
     loss = tf.reduce_sum(tf.square(selected_q - target_q))    
@@ -93,44 +66,73 @@ def append_to_hist(state, obs):
         state[i, :] = state[i+1, :]
     state[-1, :] = obs
 
-def define_model(inp_shape):
-    model = Sequential()
-    #input Layer
-    #model.add(Reshape((1,) + inp_shape, input_shape=inp_shape))
-    #model.add(Convolution1D(64, 3, border_mode='same', input_shape=inp_shape))
-    model.add(Reshape(inp_shape, input_shape=inp_shape))
 
-    model.add(Dense(64))
-    model.add(Activation("relu"))
 
-    #Hidden Layers
-    model.add(Dense(128))
-    model.add(Activation("relu"))
+def getNetwork(state_node, NUM_LABELS=5):
 
-    model.add(Reshape((1, 128)))
+    def weight_variable(shape):
+        initial = tf.truncated_normal(shape, stddev=0.1)
+        return tf.Variable(initial)
 
-    model.add(Convolution1D(64, 3, border_mode='same'))
-    model.add(Activation("relu"))
-    
-    model.add(Convolution1D(32, 3, border_mode='same'))
-    model.add(Activation("relu"))
+    def bias_variable(shape):
+        initial = tf.constant(0.1, shape=shape)
+        return tf.Variable(initial)
 
-    model.add(Convolution1D(64, 3, border_mode='same'))
-    model.add(Activation("relu"))
+    def conv2d(x, W):
+        return tf.nn.conv2d(x, W, strides=[1, 1, 1, 1], padding='SAME')
 
-    #model.add(Dense(64))
-    #model.add(Activation("tanh"))
+    def max_pool_2x2(x):
+        return tf.nn.max_pool(x, ksize=[1, 2, 2, 1],
+                              strides=[1, 2, 2, 1], padding='SAME')
+  
+    #help(tf.shape(state_node))
+    x_image = tf.reshape(state_node, [32,4,4,-1]) # TOOD
 
-    #model.add(Dense(64))
-    #model.add(Activation("relu"))
+    print('midsize0', x_image)
+    N0, N1, N2, N3 = 64, 128, 32, 1024
+    W_conv0 = weight_variable([5, 5, 225, N0])
+    b_conv0 = bias_variable([N0])
 
-    # Output layer
-    model.add(Convolution1D(opt.act_num, 3, border_mode='same'))
-    model.add(Activation("softmax"))
+    h_conv0 = tf.nn.relu(conv2d(x_image, W_conv0) + b_conv0)
+    #h_pool0 = max_pool_2x2(h_conv0)
+    #h_pool0 = x_image
+    print('midsize1', h_conv0)
+    W_conv1 = weight_variable([5, 5, N0, N1])
+    b_conv1 = bias_variable([N1])
 
-    model.add(Reshape((opt.act_num,)))
-    model.compile(loss='categorical_crossentropy', optimizer='sgd', metrics=['accuracy'])
-    return model
+    #h_conv1 = tf.nn.relu(conv2d(h_pool0, W_conv1) + b_conv1)
+    h_conv1 = tf.nn.relu(conv2d(h_conv0, W_conv1) + b_conv1)
+    #h_pool1 = max_pool_2x2(h_conv1)
+
+    print('midsize2', h_conv1)
+    W_conv2 = weight_variable([5, 5, N1, N2])
+    b_conv2 = bias_variable([N2])
+
+    h_conv2 = tf.nn.relu(conv2d(h_conv1, W_conv2) + b_conv2)
+    h_conv2_flat = tf.reshape(h_conv2, [32, -1])#[-1, 8*8*N2])
+    #h_pool2 = max_pool_2x2(h_conv2)
+    #h_pool2_flat = tf.reshape(h_pool2, [-1, 8*8*N2])
+    #print('midsize3', h_pool2_flat)
+
+    print('midsize3', h_conv2_flat)
+    #W_fc1 = weight_variable([4*4* N2, N3])
+    W_fc1 = weight_variable([512, N3])
+    b_fc1 = bias_variable([N3])
+
+    #h_pool2_flat = tf.reshape(h_pool2, [-1, 4*4*N2])
+    #h_pool2_flat = tf.reshape(h_pool2, [-1, 8*8*N2])
+    h_fc1 = tf.nn.relu(tf.matmul(h_conv2_flat, W_fc1) + b_fc1)
+
+    #h_fc1 = tf.nn.relu(tf.matmul(h_pool2_flat, W_fc1) + b_fc1)
+    print('midsize4', h_fc1)
+    W_fc2 = weight_variable([N3, NUM_LABELS])
+    b_fc2 = bias_variable([NUM_LABELS])
+
+    y_conv = tf.matmul(h_fc1, W_fc2) + b_fc2
+    print('fuck', y_conv)
+    return y_conv
+
+
 #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 # NOTE:
 # In contrast to your last exercise you DO NOT generate data before training
@@ -176,13 +178,29 @@ loss = Q_loss(Q, u, Qn, ustar, r, term)
 # setup an optimizer in tensorflow to minimize the loss
 """
 
+
+state_ph = tf.placeholder(tf.float32, shape=(opt.minibatch_size, opt.hist_len*opt.state_siz))
+action_ph = tf.placeholder(tf.float32, shape=(opt.minibatch_size, opt.act_num))
+action_best_ph = tf.placeholder(tf.float32, shape=(opt.minibatch_size, opt.act_num))
+next_state_ph = tf.placeholder(tf.float32, shape=(opt.minibatch_size, opt.hist_len*opt.state_siz))
+reward_ph = tf.placeholder(tf.float32, shape=(opt.minibatch_size, 1))
+terminal_ph = tf.placeholder(tf.float32, shape=(opt.minibatch_size, 1))
+
+Qfeed_ph = getNetwork(state_ph, opt.act_num)
+Qfeed_next_ph = getNetwork(next_state_ph, opt.act_num)
+action_best_ph = tf.one_hot(tf.argmax(Qfeed_next_ph, 1), opt.act_num)
+
+loss = Q_loss(Qfeed_ph, action_ph, Qfeed_next_ph, action_best_ph, reward_ph, terminal_ph)
+
+sess = tf.InteractiveSession()
+sess.run(tf.initialize_all_variables())
 # lets assume we will train for a total of 1 million steps
 # this is just an example and you might want to change it
 steps = 1 * 10**6
 epi_step = 0
 nepisodes = 0
 
-cnn_model = define_model(inp_shape=(opt.hist_len*opt.state_siz,)) # TODO check -1 or batchsize
+#cnn_model = define_model(inp_shape=(opt.hist_len*opt.state_siz,)) # TODO check -1 or batchsize
 
 state = sim.newGame(opt.tgt_y, opt.tgt_x)
 state_with_history = np.zeros((opt.hist_len, opt.state_siz))
@@ -202,14 +220,6 @@ for step in range(steps):
     # TODO: here you would let your agent take its action
     #       remember
     #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    # this just gets a random action
-    #if random.random() < PR_EPSILON:
-     #   pass
-        # TODO: Action a maximizes Q(s,a)
-        # Q_loss(Q_s, action_onehot, Q_s_next, best_action_next, reward, terminal, discount=0.99):
-        # action = np.argmax(np.array([Q_loss(state, _action, next_state_with_history, reward, state.terminal) for _action in range(opt.act_num)]))
-        # DEBUG Check ranges [1, N] or [1, N)
-    
     action = randrange(opt.act_num)
     action_onehot = trans.one_hot_action(action)
     next_state = sim.step(action)
@@ -229,8 +239,16 @@ for step in range(steps):
     # this should proceed as follows:
     # 1)done pre-define variables and networks as outlined above
     # 1) here: calculate best action for next_state_batch
-    state_batch = cnn_model.predict(state_history_batch)
-    next_state_batch = cnn_model.predict(next_state_history_batch)
+
+
+    #Q = getNetwork(state_ph, opt.act_num)
+    #Qn = getNetwork(next_state_ph, opt.act_num)
+
+    #state_batch = cnn_model.predict(state_history_batch)
+    #next_state_batch = cnn_model.predict(next_state_history_batch)
+    #state_feed_ph = sess.run(Qfeed, feed_dict={state_ph: state_history_batch})
+    #next_state_feed_ph = sess.run(Qfeed, feed_dict={state_ph: next_state_history_batch})
+
     #state_ph, action_ph, next_state_ph, reward_ph, terminal_ph = trans.sample_minibatch()
     # TODO(done)
     # action_batch_next = CALCULATE_ME
@@ -240,23 +258,25 @@ for step in range(steps):
     #print(next_state_batch)
     #print(np.argmax(next_state_batch, axis=1))
     #for x in map(lambda x: trans.one_hot_action(x), np.argmax(next_state_batch, axis=1).tolist()): print(x)
-    action_batch_next = np.array(list(map(lambda act: trans.one_hot_action(act).flatten().tolist(), np.argmax(next_state_batch, axis=1).tolist())))
-    q_true = loss_util(state_batch, action_batch, next_state_batch, action_batch_next, reward_batch, terminal_batch)
-    print(q_true.__dict__)
-    help(q_true)
-    loss = cnn_model.train_on_batch(next_state_history_batch, q_true)
+   
+    #action_batch_next = np.array(list(map(lambda act: trans.one_hot_action(act).flatten().tolist(), tf.argmax(next_state_batch, axis=1).tolist())))
+    
+    #action_batch_next = tf.argmax(next_state_ph)
+    #q_true = loss_util(state_batch, action_batch, next_state_batch, action_batch_next, reward_batch, terminal_batch)
+    #print(q_true.__dict__)
+    #help(q_true)
+    #loss = cnn_model.train_on_batch(next_state_history_batch, q_true)
 
-    #err = sess.run(loss, feed_dict = {state_ph : state_batch,
-    #                                  action_ph : action_batch,
-    #                                  best_action_ph : action_batch_next,
-    #                                  next_state_ph : next_state_batch,
-    #                                  reward_ph : reward_batch,
-    #                                  terminal_ph : terminal_batch})
+    err = sess.run(loss, feed_dict = {state_ph : state_history_batch,
+                                      action_ph : action_batch,
+                                      #action_best_ph : action_batch_next,
+                                      next_state_ph : next_state_history_batch,
+                                      reward_ph : reward_batch,
+                                      terminal_ph : terminal_batch})
 
     
-    # TODO(done) every once in a while you should test your agent here so that you can track its performance
-    if step % 1000 == 0:
-        print("Step %d : loss %.3f" % (step, loss))
+    if step % 1 == 0: # TODO(done) every once in a while you should track its performance
+        print("Step %d : loss %.3f" % (step, err))
     if opt.disp_on:
         if win_all is None:
             plt.subplot(121)
