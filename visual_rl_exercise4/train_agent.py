@@ -59,7 +59,7 @@ def append_to_hist(state, obs):
 
 
 
-def getNetwork(state_node, NUM_LABELS=5):
+def getNetwork(state_node, batchsize, NUM_LABELS):
 
     def weight_variable(shape):
         initial = tf.truncated_normal(shape, stddev=0.1)
@@ -76,6 +76,7 @@ def getNetwork(state_node, NUM_LABELS=5):
         return tf.nn.max_pool(x, ksize=[1, 2, 2, 1],
                               strides=[1, 2, 2, 1], padding='SAME')
 
+    assert tf.shape(state_node).eval({})[0] == batchsize
     x_image = tf.reshape(state_node, [tf.shape(state_node).eval({})[0],4,4,-1])
 
     N0, N1, N2, N3 = 64, 128, 32, 1024
@@ -97,13 +98,13 @@ def getNetwork(state_node, NUM_LABELS=5):
 
     h_conv2 = tf.nn.relu(conv2d(h_conv1, W_conv2) + b_conv2)
     #h_conv2_flat = tf.reshape(h_conv2, [tf.shape(h_conv1).eval({})[0], -1])#[-1, 8*8*N2])
-    h_conv2_flat = tf.reshape(h_conv2, [tf.shape(h_conv1).eval({})[0], -1])#[-1, 8*8*N2])
+    h_conv2_flat = tf.reshape(h_conv2, [batchsize, -1])#[-1, 8*8*N2])
     #h_pool2 = max_pool_2x2(h_conv2)
     #h_pool2_flat = tf.reshape(h_pool2, [-1, 8*8*N2])
     #print('midsize3', h_pool2_flat)
 
     #W_fc1 = weight_variable([4*4* N2, N3])
-    W_fc1 = weight_variable([512, N3])
+    W_fc1 = weight_variable([tf.shape(h_conv2_flat).eval({})[-1], N3])
     b_fc1 = bias_variable([N3])
 
     #h_pool2_flat = tf.reshape(h_pool2, [-1, 4*4*N2])
@@ -173,9 +174,8 @@ next_state_ph = tf.placeholder(tf.float32, shape=(opt.minibatch_size, opt.hist_l
 reward_ph = tf.placeholder(tf.float32, shape=(opt.minibatch_size, 1))
 terminal_ph = tf.placeholder(tf.float32, shape=(opt.minibatch_size, 1))
 
-Qfunc = getNetwork(inp_ph, opt.act_num)
-Qfeed_ph = getNetwork(state_ph, opt.act_num)
-Qfeed_next_ph = getNetwork(next_state_ph, opt.act_num)
+Qfeed_ph = getNetwork(state_ph, opt.minibatch_size, opt.act_num)
+Qfeed_next_ph = getNetwork(next_state_ph, opt.minibatch_size, opt.act_num)
 
 action_best_ph = tf.one_hot(tf.argmax(Qfeed_next_ph, 1), opt.act_num)
 
@@ -240,22 +240,18 @@ for step in range(steps):
 
     #Qfeed_ph = Qfunc.eval({inp_ph: state_history_batch})
     #Qfeed_next_ph = Qfunc.eval({inp_ph: next_state_history_batch})
-    #action_best_ph = tf.one_hot(tf.argmax(Qfeed_next_ph, 1), opt.act_num)
-    #action_batch_next = np.array(list(map(lambda act: trans.one_hot_action(act).flatten().tolist(), tf.argmax(next_state_batch, axis=1).tolist())))
 
     sess.run(train_step, feed_dict = {state_ph : state_history_batch,
-                                       action_ph : action_batch,
-                                       #action_best_ph : action_batch_next,
-                                       next_state_ph : next_state_history_batch,
-                                       reward_ph : reward_batch,
-                                       terminal_ph : terminal_batch})
+                                      action_ph : action_batch,
+                                      next_state_ph : next_state_history_batch,
+                                      reward_ph : reward_batch,
+                                      terminal_ph : terminal_batch})
 
     err = sess.run(loss, feed_dict={state_ph: state_history_batch,
-                                       action_ph : action_batch,
-                                       #action_best_ph : action_batch_next,
-                                       next_state_ph : next_state_history_batch,
-                                       reward_ph : reward_batch,
-                                       terminal_ph : terminal_batch})
+                                    action_ph : action_batch,
+                                    next_state_ph : next_state_history_batch,
+                                    reward_ph : reward_batch,
+                                    terminal_ph : terminal_batch})
 
     avg_siz += 1
     avg_loss += err
@@ -263,8 +259,6 @@ for step in range(steps):
         print("Step %d : loss %.3f" % (step, avg_loss / avg_siz))
         avg_loss, avg_siz = 0, 0
     if opt.disp_on:
-        pass
-        """
         if win_all is None:
             plt.subplot(121)
             win_all = plt.imshow(state.screen)
@@ -275,7 +269,6 @@ for step in range(steps):
             win_pob.set_data(state.pob)
         plt.pause(opt.disp_interval)
         plt.draw()
-        """
 
 
 # 2. perform a final test of your model and save it
