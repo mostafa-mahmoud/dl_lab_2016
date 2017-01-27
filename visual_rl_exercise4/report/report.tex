@@ -21,7 +21,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %----------------------------------------------------------------------------------------
-%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+% PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
 %----------------------------------------------------------------------------------------
 
 %------------------------------------------------
@@ -45,7 +45,7 @@
 %% you can change the position yourself here, if you need to:
 
 % \advance\voffset -.5in % Minus dimension will raise the printed page on the 
-                         %  physical page; positive dimension will lower it.
+%  physical page; positive dimension will lower it.
 
 %% You may set the dimension to the size that you need.
 
@@ -94,7 +94,7 @@
 \begin{document}
 
 %----------------------------------------------------------------------------------------
-%	TITLE AND AUTHORS
+%  TITLE AND AUTHORS
 %----------------------------------------------------------------------------------------
 
 \title{Report on Machine Learning Lab, Ex 4} % For titles, only capitalize the first letter
@@ -114,7 +114,7 @@
 %\begin{article}
 
 %----------------------------------------------------------------------------------------
-%	ABSTRACT, KEYWORDS AND ABBREVIATIONS
+%  ABSTRACT, KEYWORDS AND ABBREVIATIONS
 %----------------------------------------------------------------------------------------
 
 %\begin{abstract}
@@ -122,29 +122,28 @@
 %\end{abstract}
 
 \section{Introduction}
-This is a report about the deep learning lab, exercise 4. The general task of this assignment was to use Tensorflow to implement a convolutional neural network to train it on solving a search problem and enhancing our results using QLearning. As well as trying different configurations and architectures of the neural networks.
+This is a report about the deep learning lab, exercise 4. The general task of this assignment was to use Tensorflow to implement a CNN to train it on solving a search problem and enhancing our results using QLearning. As well as trying different configurations and architectures of the neural networks.
 
 \section{Search problem}
 The given problem was find a target position in a given maze. and we need to solve it using an approximation of Q-Learning using neural networks.
 
 \section{Architecture}
 \begin{itemize}
-\item Input: We have transitionTables that stores the structures of the maps of the maze.
-
-\item Network: We used a tensorflow for our neural network, we used a network of 7 hidden layers (combination of convolutions, pooling and dense layers)
+\item Network: We used a tensorflow for our neural network, we used a network of 7 hidden layers (combination of convolutions, pooling and dense layers), and sometimes we remove the pooling layers (so only 3 remaining hidden layers)
+\item We used an epsilon (for choosing random actions) to be $0.8$ and drops down to $0.05$ after 10,000 iterations.
 \end{itemize}
 
 \section{Results}
 We tried different configurations for the running.
 \begin{itemize}
-\item {\bf CNN without pooling, $discount=0.99$}: The loss had an average of $10^6$ for nearly 20,000 iterations, then it started to vary between $10^5 - 10^6$ until nearly 300,000 iterations, then the average loss was between $10^4 - 10^5$ until nearly 700,000.
 \item {\bf CNN with pooling,$discount=0.99$}: When we first introduced pooling the average loss instantaneously decreased by a factor of 100, the average loss was around $10^4 - 2 \cdot 10^4$ until 50,000 iterations, but we decided to try different discount value
 \item {\bf CNN with pooling, $discount = 0.5$}: The values we tried here had a beginning average loss of $3000$ and it decreased gradually until it reached an average of $300$ in 200,000 iterations.
-
+\item {\bf CNN without pooling, $discount=0.5$}: After setting a lower standard deviation for the weights $10^{-4}$ instead of $0.1$, the loss dropped down to $1.5$ which shows a huge significance, reaching $0.01$ after 30,000 iterations, and consistently remaining less than $0.01$ after 50,000 iterations
 \end{itemize}
 
+
 %----------------------------------------------------------------------------------------
-%	FIGURES AND TABLES
+%  FIGURES AND TABLES
 %----------------------------------------------------------------------------------------
 
 %% Adding Figure and Table References
