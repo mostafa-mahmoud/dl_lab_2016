@@ -181,7 +181,7 @@ Qfeed_next_ph = getNetwork(next_state_ph, opt.minibatch_size, opt.act_num)
 
 action_best_ph = tf.one_hot(tf.argmax(Qfeed_next_ph, 1), opt.act_num)
 
-loss = Q_loss(Qfeed_ph, action_ph, Qfeed_next_ph, action_best_ph, reward_ph, terminal_ph)
+loss = Q_loss(Qfeed_ph, action_ph, Qfeed_next_ph, action_best_ph, reward_ph, terminal_ph, 0.5)
 train_step = tf.train.AdamOptimizer(1e-4).minimize(loss)
 
 sess.run(tf.initialize_all_variables())
