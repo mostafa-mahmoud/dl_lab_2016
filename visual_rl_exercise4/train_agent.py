@@ -185,7 +185,7 @@ train_step = tf.train.AdamOptimizer(1e-4).minimize(loss)
 sess.run(tf.initialize_all_variables())
 # lets assume we will train for a total of 1 million steps
 # this is just an example and you might want to change it
-steps = 1 * 10**3
+steps = 1 * 10**6
 epi_step = 0
 nepisodes = 0
 
