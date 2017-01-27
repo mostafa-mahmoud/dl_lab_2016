@@ -1,7 +1,8 @@
 import numpy as np
 
 class Options:
-    action_epsilon = 0.05
+    action_epsilon_small = 0.05
+    action_epsilon_big = 0.80
     #
     disp_on = False # you might want to set it to False for speed
     map_ind = 1
