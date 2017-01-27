@@ -185,7 +185,7 @@ train_step = tf.train.AdamOptimizer(1e-4).minimize(loss)
 sess.run(tf.initialize_all_variables())
 # lets assume we will train for a total of 1 million steps
 # this is just an example and you might want to change it
-steps = 1 * 10**6
+steps = 1 * 10**3
 epi_step = 0
 nepisodes = 0
 
@@ -273,11 +273,6 @@ for step in range(steps):
 
 # 2. perform a final test of your model and save it
 # TODO. done.
-
-# serialize model to JSON
-model_json = cnn_model.to_json()
-with open(opt.network_fil, "w") as json_file:
-    json_file.write(model_json)
-# serialize weights to HDF5
-cnn_model.save_weights(opt.weights_fil)
-print("Saved model to disk")
+saver = tf.train.Saver()
+save_path = saver.save(sess, "model.ckpt")
+print("Saved model to disk " + save_path)
