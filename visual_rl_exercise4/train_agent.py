@@ -84,34 +84,36 @@ def getNetwork(state_node, batchsize, NUM_LABELS):
     b_conv0 = bias_variable([N0])
 
     h_conv0 = tf.nn.relu(conv2d(x_image, W_conv0) + b_conv0)
-    #h_pool0 = max_pool_2x2(h_conv0)
+    h_pool0 = max_pool_2x2(h_conv0)
     #h_pool0 = x_image
     W_conv1 = weight_variable([5, 5, N0, N1])
     b_conv1 = bias_variable([N1])
 
-    #h_conv1 = tf.nn.relu(conv2d(h_pool0, W_conv1) + b_conv1)
-    h_conv1 = tf.nn.relu(conv2d(h_conv0, W_conv1) + b_conv1)
-    #h_pool1 = max_pool_2x2(h_conv1)
+    h_conv1 = tf.nn.relu(conv2d(h_pool0, W_conv1) + b_conv1)
+    #h_conv1 = tf.nn.relu(conv2d(h_conv0, W_conv1) + b_conv1)
+    h_pool1 = max_pool_2x2(h_conv1)
 
     W_conv2 = weight_variable([5, 5, N1, N2])
     b_conv2 = bias_variable([N2])
 
-    h_conv2 = tf.nn.relu(conv2d(h_conv1, W_conv2) + b_conv2)
+    #h_conv2 = tf.nn.relu(conv2d(h_conv1, W_conv2) + b_conv2)
+    h_conv2 = tf.nn.relu(conv2d(h_pool1, W_conv2) + b_conv2)
     #h_conv2_flat = tf.reshape(h_conv2, [tf.shape(h_conv1).eval({})[0], -1])#[-1, 8*8*N2])
-    h_conv2_flat = tf.reshape(h_conv2, [batchsize, -1])#[-1, 8*8*N2])
-    #h_pool2 = max_pool_2x2(h_conv2)
+    #h_conv2_flat = tf.reshape(h_conv2, [batchsize, -1])#[-1, 8*8*N2])
+    h_pool2 = max_pool_2x2(h_conv2)
     #h_pool2_flat = tf.reshape(h_pool2, [-1, 8*8*N2])
+    h_pool2_flat = tf.reshape(h_pool2, [batchsize, -1])
     #print('midsize3', h_pool2_flat)
 
     #W_fc1 = weight_variable([4*4* N2, N3])
-    W_fc1 = weight_variable([tf.shape(h_conv2_flat).eval({})[-1], N3])
+    #W_fc1 = weight_variable([tf.shape(h_conv2_flat).eval({})[-1], N3])
+    W_fc1 = weight_variable([tf.shape(h_pool2_flat).eval({})[-1], N3])
     b_fc1 = bias_variable([N3])
 
-    #h_pool2_flat = tf.reshape(h_pool2, [-1, 4*4*N2])
     #h_pool2_flat = tf.reshape(h_pool2, [-1, 8*8*N2])
-    h_fc1 = tf.nn.relu(tf.matmul(h_conv2_flat, W_fc1) + b_fc1)
+    #h_fc1 = tf.nn.relu(tf.matmul(h_conv2_flat, W_fc1) + b_fc1)
+    h_fc1 = tf.nn.relu(tf.matmul(h_pool2_flat, W_fc1) + b_fc1)
 
-    #h_fc1 = tf.nn.relu(tf.matmul(h_pool2_flat, W_fc1) + b_fc1)
     W_fc2 = weight_variable([N3, NUM_LABELS])
     b_fc2 = bias_variable([NUM_LABELS])
 
