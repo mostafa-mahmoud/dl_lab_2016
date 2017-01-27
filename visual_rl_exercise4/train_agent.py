@@ -180,7 +180,7 @@ Qfeed_next_ph = getNetwork(next_state_ph, opt.minibatch_size, opt.act_num)
 action_best_ph = tf.one_hot(tf.argmax(Qfeed_next_ph, 1), opt.act_num)
 
 loss = Q_loss(Qfeed_ph, action_ph, Qfeed_next_ph, action_best_ph, reward_ph, terminal_ph)
-train_step = tf.train.AdamOptimizer(1e-4).minimize(loss)
+train_step = tf.train.AdamOptimizer(1e-3).minimize(loss)
 
 sess.run(tf.initialize_all_variables())
 # lets assume we will train for a total of 1 million steps
@@ -193,7 +193,7 @@ state = sim.newGame(opt.tgt_y, opt.tgt_x)
 state_with_history = np.zeros((opt.hist_len, opt.state_siz))
 append_to_hist(state_with_history, rgb2gray(state.pob).reshape(opt.state_siz))
 next_state_with_history = np.copy(state_with_history)
-avg_loss, avg_siz = 0, 0
+avg_loss, avg_siz, min_loss = 0, 0, float("inf")
 for step in range(steps):
     if state.terminal or epi_step >= opt.early_stop:
         epi_step = 0
@@ -221,9 +221,7 @@ for step in range(steps):
     # mark next state as current state
     state_with_history = np.copy(next_state_with_history)
     state = next_state
-    #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    # TODO: here you would train your agent
-    #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    # Training Agent
     state_history_batch, action_batch, next_state_history_batch, reward_batch, terminal_batch = trans.sample_minibatch()
     # cnn_model.train_on_batch(state_batch, next_state_batch) # TODO(done): remove
     # TODO train me here
@@ -255,9 +253,10 @@ for step in range(steps):
 
     avg_siz += 1
     avg_loss += err
+    min_loss = min(min_loss, err)
     if step % 100 == 0:
-        print("Step %d : loss %.3f" % (step, avg_loss / avg_siz))
-        avg_loss, avg_siz = 0, 0
+        print("Step %d : loss %.3f, min loss: %.3f" % (step, avg_loss / avg_siz, min_loss))
+        avg_loss, avg_siz, min_loss = 0, 0, float("inf")
     if opt.disp_on:
         if win_all is None:
             plt.subplot(121)
