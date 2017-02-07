@@ -1,4 +1,8 @@
 *.pyc
+*.csv
+*.h5
+*.aux
+*.log
 *.swp
 *.swo
-**/data
+*/data
