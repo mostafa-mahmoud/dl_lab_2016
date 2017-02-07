@@ -1,0 +1,8 @@
+A* example of the test agent
+test_agent : take CNN instead of A* as input
+train_agent: create CNN and train it
+utils: hyperparameters
+maps: map details
+simulator: simulate action
+transition table: needed in test agent:: core functions
+get data: runs A* and saves the algorithm details in file
