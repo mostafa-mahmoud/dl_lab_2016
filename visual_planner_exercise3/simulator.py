@@ -185,21 +185,10 @@ class Simulator:
 
     def draw_reset(self): # reset background & draw obs
         self.state_screen = np.zeros((self.map_hei*self.cub_siz, self.map_wid*self.cub_siz, 3), dtype=np.uint8)
-        count = 0
         for obj_ind in range(self.obs_ind, self.obj_num):
-            count += 1
             self.draw_cube(self.obj_pos[obj_ind][0],
                            self.obj_pos[obj_ind][1],
                            self.obs_clr_ind, 255)
-
-            if self.obj_pos[obj_ind][1] > 12:
-                self.draw_cube(self.obj_pos[obj_ind][0],
-                               self.obj_pos[obj_ind][1],
-                               1, 80)
-            if count > 260:
-                self.draw_cube(self.obj_pos[obj_ind][0],
-                               self.obj_pos[obj_ind][1],
-                               2, 140)
 
     def draw_new(self): # erase old bot tgt & draw new tgt
         # black old bot
@@ -212,24 +201,10 @@ class Simulator:
             self.draw_cube(self.tgt_pos_old[0],
                            self.tgt_pos_old[1],
                            self.tgt_clr_ind, 0)
-
-            self.draw_cube(self.tgt_pos_old[0],
-                           self.tgt_pos_old[1],
-                           self.bot_clr_ind, 0)
-
-            self.draw_cube(self.tgt_pos_old[0],
-                           self.tgt_pos_old[1],
-                           self.obs_clr_ind, 0)
         # green new tgt
         self.draw_cube(self.obj_pos[self.tgt_ind][0],
                        self.obj_pos[self.tgt_ind][1],
-                       0, 255)
-        self.draw_cube(self.obj_pos[self.tgt_ind][0],
-                       self.obj_pos[self.tgt_ind][1],
                        self.tgt_clr_ind, 255)
-        self.draw_cube(self.obj_pos[self.tgt_ind][0],
-                       self.obj_pos[self.tgt_ind][1],
-                       2, 255)
 
     def draw_step(self): # erase old bot & draw new bot
         # black old bot

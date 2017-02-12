@@ -85,7 +85,7 @@ def define_model(inp_shape):
   model.compile(loss='categorical_crossentropy', optimizer='sgd', metrics=['accuracy'])
   return model
 
-cnn_astar_mimic = define_model((opt.state_siz * opt.hist_len,))
+cnn_astar_mimic = define_model((opt.state_siz * (opt.hist_len + 1),))
 
 for _ in xrange(50):
   for i in xrange(opt.n_minibatches):

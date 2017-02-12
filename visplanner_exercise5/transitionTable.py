@@ -34,7 +34,8 @@ class TransitionTable:
     def stack_hist(self):
         # stack history
         old_states = self.states.copy()
-        self.states = np.zeros([self.size, self.hist_len * self.state_siz])
+        # self.states = np.zeros([self.size, self.hist_len * self.state_siz])
+        self.states = np.zeros([self.size, (self.hist_len + 1) * self.state_siz])
         full_state = np.zeros([self.hist_len, self.state_siz])
         # use this for indicating the beginning of each of episode (the 1st frame is always w/ label 0)
         old_labels = self.labels.copy()
@@ -57,7 +58,9 @@ class TransitionTable:
                 full_state = np.append(full_state, state.reshape(1, self.state_siz), 0)
                 if full_state.shape[0] > self.hist_len: # remove the oldest history
                     full_state = np.delete(full_state, 0, 0)
-            self.states[i] = full_state.reshape(self.hist_len * self.state_siz)
+            full_state_copy = np.append(full_state, state.reshape(1, self.state_siz))
+            self.states[i] = full_state_copy.reshape((self.hist_len + 1) * self.state_siz)
+            #self.states[i] = full_state.reshape(self.hist_len * self.state_siz)
 
     def load_data(self):
         self.states = np.loadtxt(self.states_fil, delimiter=',')
@@ -93,7 +96,11 @@ class TransitionTable:
                 self.recent_states = np.delete(self.recent_states, 0, 0)
 
     def get_recent(self):
-        return self.recent_states.copy().reshape(1, self.hist_len * self.state_siz)
+        # TODO: get target_state
+        target_state = self.recent_states[-1,:]
+        recent_states = np.append(self.recent_states.copy(), target_state.reshape(1, self.state_siz))
+        return recent_states.copy().reshape(1, (self.hist_len + 1) * self.state_siz)
+        #return self.recent_states.copy().reshape(1, self.hist_len * self.state_siz)
 
     # to be used for NeuralPlanner.learn()
     def get_train(self):
