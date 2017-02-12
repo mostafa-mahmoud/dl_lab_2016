@@ -12,8 +12,8 @@ opt = Options()
 sim = Simulator(opt.map_ind, opt.cub_siz, opt.pob_siz, opt.act_num)
 # FIXME Check if needed
 trans = TransitionTable(opt.state_siz, opt.act_num, opt.hist_len,
-                             opt.minibatch_size, opt.valid_size,
-                             opt.states_fil, opt.labels_fil)
+                        opt.minibatch_size, opt.valid_size,
+                        opt.states_fil, opt.labels_fil, opt.targets_fil)
 
 # TODO: load your agent
 agent = model_from_json(open(opt.network_fil, 'r').read())
@@ -50,7 +50,7 @@ for step in range(opt.eval_steps):
         #print rgb2gray(state.pob).shape
 
         current_state = rgb2gray(state.pob).reshape(1, opt.state_siz)
-        trans.add_recent(epi_step, current_state)
+        trans.add_recent(epi_step, current_state, rgb2gray(sim.get_target_position()).reshape((opt.state_siz,)))
         X_test = trans.get_recent()
         action = agent.predict(X_test, opt.minibatch_size)
         action = np.argmax(action)

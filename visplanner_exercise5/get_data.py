@@ -9,6 +9,7 @@ opt = Options()
 sim = Simulator(opt.map_ind, opt.cub_siz, opt.pob_siz, opt.act_num)
 states = np.zeros([opt.data_steps, opt.state_siz], float)
 labels = np.zeros([opt.data_steps], int)
+targets = np.zeros([opt.data_steps, opt.state_siz], float)
 
 # Note I am forcing the display to be off here to make data collection fast
 # you can turn it on again for debugging purposes
@@ -34,6 +35,7 @@ for step in range(opt.data_steps):
     # TODO: Critical!! Save data and and labels
     states[step, :] = rgb2gray(state.pob).reshape(opt.state_siz)
     labels[step]    = state.action
+    targets[step, :]   = rgb2gray(sim.get_target_position()).reshape(opt.state_siz)
 
     epi_step += 1
 
@@ -57,5 +59,7 @@ for step in range(opt.data_steps):
 print('saving data ...')
 np.savetxt(opt.states_fil, states, delimiter=',')
 np.savetxt(opt.labels_fil, labels, delimiter=',')
+np.savetxt(opt.targets_fil, targets, delimiter=',')
 print("states saved to " + opt.states_fil)
 print("labels saved to " + opt.labels_fil)
+print("labels saved to " + opt.targets_fil)

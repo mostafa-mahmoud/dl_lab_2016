@@ -3,10 +3,11 @@ import numpy as np
 class Options:
     #
     disp_on = True # you might want to set it to False for speed
-    map_ind = 2
-    change_tgt = False
+    map_ind = 0
+    change_tgt = True #False
     states_fil = "states.csv"
     labels_fil = "labels.csv"
+    targets_fil = "targets.csv"
     network_fil = "network.json"
     weights_fil = "network.h5"
     # simulator config

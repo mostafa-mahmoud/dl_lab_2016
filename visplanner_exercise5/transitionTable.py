@@ -6,7 +6,7 @@ class TransitionTable:
 
     def __init__(self, state_siz, act_num, hist_len,
                        minibatch_size, valid_size,
-                       states_fil, labels_fil):
+                       states_fil, labels_fil, targets_fil):
         self.state_siz = state_siz
         self.act_num = act_num
         self.hist_len  = hist_len
@@ -14,6 +14,7 @@ class TransitionTable:
         self.valid_size = valid_size
         self.states_fil = states_fil
         self.labels_fil = labels_fil
+        self.targets_fil = targets_fil
         self.minibatchInd = None
         self.load_data()
         self.recent_states = np.zeros([self.hist_len, self.state_siz])
@@ -46,6 +47,7 @@ class TransitionTable:
         self.labels = np.delete(self.labels, 0, 0)
         # labels into one hot encoding
         self.labels = self.one_hot(self.labels)
+        old_targets = self.targets.copy()
 
         for i in range(self.size):
             state = old_states[i, :]
@@ -58,13 +60,14 @@ class TransitionTable:
                 full_state = np.append(full_state, state.reshape(1, self.state_siz), 0)
                 if full_state.shape[0] > self.hist_len: # remove the oldest history
                     full_state = np.delete(full_state, 0, 0)
-            full_state_copy = np.append(full_state, state.reshape(1, self.state_siz))
+            full_state_copy = np.append(full_state, old_targets[i].reshape(1, self.state_siz), 0)
             self.states[i] = full_state_copy.reshape((self.hist_len + 1) * self.state_siz)
             #self.states[i] = full_state.reshape(self.hist_len * self.state_siz)
 
     def load_data(self):
         self.states = np.loadtxt(self.states_fil, delimiter=',')
         self.labels = np.loadtxt(self.labels_fil, delimiter=',').astype("int")
+        self.targets = np.loadtxt(self.targets_fil, delimiter=',')
         assert self.states.shape[0] == self.labels.shape[0]
         self.size   = self.states.shape[0]
         self.minibatchNum = int(self.size - self.valid_size) / int(self.minibatch_size)
@@ -85,22 +88,21 @@ class TransitionTable:
 
     # core funcs
 
-    def add_recent(self, epi_step, curr_state):
+    def add_recent(self, epi_step, curr_state, target_state):
         if epi_step == 0: # starting of a new episode
-            self.recent_states = np.zeros([self.hist_len, self.state_siz]) # erase current history
+            self.recent_states = np.zeros([self.hist_len + 1, self.state_siz]) # erase current history
             for i in range(self.hist_len):
                 self.recent_states[i] = curr_state
+            self.recent_states[self.hist_len,:] = target_state
         else:
-            self.recent_states = np.append(self.recent_states, curr_state.reshape(1, self.state_siz), 0)
+            recent_states = np.delete(self.recent_states, self.hist_len, 0)
+            self.recent_states = np.append(recent_states, curr_state.reshape(1, self.state_siz), 0)
             if self.recent_states.shape[0] > self.hist_len: # remove the oldest history
                 self.recent_states = np.delete(self.recent_states, 0, 0)
+            self.recent_states = np.append(self.recent_states.copy(), target_state.reshape(1, self.state_siz), 0)
 
     def get_recent(self):
-        # TODO: get target_state
-        target_state = self.recent_states[-1,:]
-        recent_states = np.append(self.recent_states.copy(), target_state.reshape(1, self.state_siz))
-        return recent_states.copy().reshape(1, (self.hist_len + 1) * self.state_siz)
-        #return self.recent_states.copy().reshape(1, self.hist_len * self.state_siz)
+        return self.recent_states.copy().reshape(1, (self.hist_len + 1) * self.state_siz)
 
     # to be used for NeuralPlanner.learn()
     def get_train(self):

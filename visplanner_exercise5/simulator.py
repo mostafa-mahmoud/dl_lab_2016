@@ -73,6 +73,7 @@ class Simulator:
         self.state_screen   = np.zeros((self.map_hei*self.cub_siz, self.map_wid*self.cub_siz, 3), dtype=np.uint8)
         self.state_terminal = False
         self.state_pob      = np.zeros((self.pob_siz*self.cub_siz, self.pob_siz*self.cub_siz, 3), dtype=np.uint8)
+        self.state_tgt      = np.zeros((self.pob_siz*self.cub_siz, self.pob_siz*self.cub_siz, 3), dtype=np.uint8)
 
     # helper funcs
 
@@ -246,6 +247,13 @@ class Simulator:
         y1, y2, x1, x2 = self.get_pob_from_ind(self.obj_pos[self.bot_ind][0], self.obj_pos[self.bot_ind][1])
         self.state_pob = self.state_screen[y1:y2, x1:x2, :]
 
+    def draw_tgt(self): # crop tgt from screen
+        y1, y2, x1, x2 = self.get_pob_from_ind(self.obj_pos[self.tgt_ind][0], self.obj_pos[self.tgt_ind][1])
+        self.state_tgt = self.state_screen[y1:y2, x1:x2, :]
+
+    def get_target_position(self):
+        return self.state_tgt
+
     # interfacing funcs
 
     def newGame(self, tgt_y, tgt_x):
@@ -292,4 +300,5 @@ class Simulator:
         self.act()
         self.draw_step()
         self.draw_pob()
+        self.draw_tgt()
         return self.get_state()
