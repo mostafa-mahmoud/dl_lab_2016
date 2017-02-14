@@ -9,7 +9,7 @@ from keras.models import model_from_json
 
 # 0. initialization
 opt = Options()
-sim = Simulator(opt.map_ind, opt.cub_siz, opt.pob_siz, opt.act_num)
+sim = Simulator(opt.map_ind, opt.cub_siz, opt.pob_siz, opt.act_num, testing=True)
 # FIXME Check if needed
 trans = TransitionTable(opt.state_siz, opt.act_num, opt.hist_len,
                         opt.minibatch_size, opt.valid_size,
@@ -41,12 +41,11 @@ for step in range(opt.eval_steps):
         if state.terminal:
             nepisodes_solved += 1
             nepisodes_end_score += 1
-            print("solved")
         else:
-            dist = np.abs(sim.fre_pos[sim.bot_ind] - sim.fre_pos[sim.tgt_ind])
-            dist = np.sum(dist)
+            dist = np.abs(sim.obj_pos[sim.bot_ind] - sim.obj_pos[sim.tgt_ind])
+            dist = (np.sum(dist) + sim.gridding_length - 1) / sim.gridding_length
             assert dist >= 1 and type(dist) == np.int64
-            nepisodes_end_score += 1.0 / (1.0 + dist)
+            nepisodes_end_score += 1.0 / (1.0 + dist ** 2)
         # start a new game
         state = sim.newGame(opt.tgt_y, opt.tgt_x)
     else:
@@ -71,12 +70,11 @@ for step in range(opt.eval_steps):
         if state.terminal:
             nepisodes_solved += 1
             nepisodes_end_score += 1
-            print("solved")
         else:
-            dist = np.abs(sim.fre_pos[sim.bot_ind] - sim.fre_pos[sim.tgt_ind])
-            dist = np.sum(dist)
+            dist = np.abs(sim.obj_pos[sim.bot_ind] - sim.obj_pos[sim.tgt_ind])
+            dist = (np.sum(dist) + sim.gridding_length - 1) / sim.gridding_length
             assert dist >= 1 and type(dist) == np.int64
-            nepisodes_end_score += 1.0 / (1.0 + dist)
+            nepisodes_end_score += 1.0 / (1.0 + dist ** 2)
         # start a new game
         state = sim.newGame(opt.tgt_y, opt.tgt_x)
 

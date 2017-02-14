@@ -1,5 +1,5 @@
 import numpy as np
-from random import randrange, choice
+from random import randrange, choice, random
 # custom modules
 from utils import State
 from maps import maps
@@ -8,7 +8,7 @@ class Simulator:
 
     # basic funcs
 
-    def __init__(self, map_ind, cub_siz, pob_siz, act_num, gridding_length=3):
+    def __init__(self, map_ind, cub_siz, pob_siz, act_num, gridding_length=3, testing=False):
         self.map_ind = map_ind
         self.cub_siz = cub_siz
         self.pob_siz = pob_siz
@@ -19,6 +19,7 @@ class Simulator:
         self.tgt_clr_ind = 1 # green
         self.obs_clr_ind = 0 # red
         self.gridding_length = gridding_length
+        self.testing = testing
         # state
         self.state_dim = 2
         # action
@@ -280,8 +281,17 @@ class Simulator:
             self.obj_pos[self.tgt_ind][0] = tgt_y
             self.obj_pos[self.tgt_ind][1] = tgt_x
         else:
-            # choose_tgt_ind = randrange(self.fre_pos.shape[0])
-            choose_tgt_ind = choice(choice(self.grid_pos))
+            # Changing target
+            if self.testing:
+                # Choose totally random place if testing
+                choose_tgt_ind = randrange(self.fre_pos.shape[0])
+            else:
+                # Choose from specific grid if training
+                grid = choice(self.grid_pos)
+                if random() < 0.2:
+                    choose_tgt_ind = grid[len(grid) / 2]
+                else:
+                    choose_tgt_ind = choice(grid)
             self.obj_pos[self.tgt_ind][0] = self.fre_pos[choose_tgt_ind][0]
             self.obj_pos[self.tgt_ind][1] = self.fre_pos[choose_tgt_ind][1]
         # 2. assign bot position
