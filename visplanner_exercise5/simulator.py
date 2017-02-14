@@ -1,5 +1,5 @@
 import numpy as np
-from random import randrange
+from random import randrange, choice
 # custom modules
 from utils import State
 from maps import maps
@@ -8,7 +8,7 @@ class Simulator:
 
     # basic funcs
 
-    def __init__(self, map_ind, cub_siz, pob_siz, act_num):
+    def __init__(self, map_ind, cub_siz, pob_siz, act_num, gridding_length=3):
         self.map_ind = map_ind
         self.cub_siz = cub_siz
         self.pob_siz = pob_siz
@@ -18,6 +18,7 @@ class Simulator:
         self.bot_clr_ind = 2 # blue
         self.tgt_clr_ind = 1 # green
         self.obs_clr_ind = 0 # red
+        self.gridding_length = gridding_length
         # state
         self.state_dim = 2
         # action
@@ -64,6 +65,16 @@ class Simulator:
                     self.fre_pos[fre_ind][0] = y
                     self.fre_pos[fre_ind][1] = x
                     fre_ind += 1
+        grid_shape = map(lambda x: (x + self.gridding_length - 1) / self.gridding_length, (self.map_hei, self.map_wid))
+        grid_pos = [[[] for j in range(grid_shape[1])] for i in range(grid_shape[0])]
+        for i, (x, y) in enumerate(self.fre_pos):
+            k = y / self.gridding_length * self.map_wid + x / self.gridding_length
+            grid_pos[x / self.gridding_length][y / self.gridding_length].append(i)
+        self.grid_pos = []
+        for row in grid_pos:
+            for idxs in row:
+                if idxs:
+                    self.grid_pos.append(idxs)
         self.reset_state()
         self.draw_reset()
 
@@ -269,7 +280,8 @@ class Simulator:
             self.obj_pos[self.tgt_ind][0] = tgt_y
             self.obj_pos[self.tgt_ind][1] = tgt_x
         else:
-            choose_tgt_ind = randrange(self.fre_pos.shape[0])
+            # choose_tgt_ind = randrange(self.fre_pos.shape[0])
+            choose_tgt_ind = choice(choice(self.grid_pos))
             self.obj_pos[self.tgt_ind][0] = self.fre_pos[choose_tgt_ind][0]
             self.obj_pos[self.tgt_ind][1] = self.fre_pos[choose_tgt_ind][1]
         # 2. assign bot position

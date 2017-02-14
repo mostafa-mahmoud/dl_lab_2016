@@ -27,6 +27,7 @@ if opt.disp_on:
 epi_step = 0    # #steps in current episode
 nepisodes = 0   # total #episodes executed
 nepisodes_solved = 0
+nepisodes_end_score = 0
 action = 0     # action to take given by the network
 
 # start a new game
@@ -39,6 +40,13 @@ for step in range(opt.eval_steps):
         nepisodes += 1
         if state.terminal:
             nepisodes_solved += 1
+            nepisodes_end_score += 1
+            print("solved")
+        else:
+            dist = np.abs(sim.fre_pos[sim.bot_ind] - sim.fre_pos[sim.tgt_ind])
+            dist = np.sum(dist)
+            assert dist >= 1 and type(dist) == np.int64
+            nepisodes_end_score += 1.0 / (1.0 + dist)
         # start a new game
         state = sim.newGame(opt.tgt_y, opt.tgt_x)
     else:
@@ -62,6 +70,13 @@ for step in range(opt.eval_steps):
         nepisodes += 1
         if state.terminal:
             nepisodes_solved += 1
+            nepisodes_end_score += 1
+            print("solved")
+        else:
+            dist = np.abs(sim.fre_pos[sim.bot_ind] - sim.fre_pos[sim.tgt_ind])
+            dist = np.sum(dist)
+            assert dist >= 1 and type(dist) == np.int64
+            nepisodes_end_score += 1.0 / (1.0 + dist)
         # start a new game
         state = sim.newGame(opt.tgt_y, opt.tgt_x)
 
@@ -81,5 +96,6 @@ for step in range(opt.eval_steps):
         plt.draw()
 
 # 2. calculate statistics
-print(float(nepisodes_solved) / float(nepisodes))
+print "Accuracy,", "Distance accuracy"
+print float(nepisodes_solved) / float(nepisodes), float(nepisodes_end_score) / float(nepisodes)
 # 3. TODO perhaps  do some additional analysis
