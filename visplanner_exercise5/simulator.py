@@ -1,5 +1,6 @@
 import numpy as np
-from random import randrange, choice, random
+import random
+from random import randrange, choice, random, randint
 # custom modules
 from utils import State
 from maps import maps
@@ -198,21 +199,21 @@ class Simulator:
 
     def draw_reset(self): # reset background & draw obs
         self.state_screen = np.zeros((self.map_hei*self.cub_siz, self.map_wid*self.cub_siz, 3), dtype=np.uint8)
-        count = 0
         for obj_ind in range(self.obs_ind, self.obj_num):
-            count += 1
-            self.draw_cube(self.obj_pos[obj_ind][0],
-                           self.obj_pos[obj_ind][1],
-                           self.obs_clr_ind, 255)
+            self.draw_obs(self.obj_pos[obj_ind][0], self.obj_pos[obj_ind][1])
 
-            if self.obj_pos[obj_ind][1] > 12:
-                self.draw_cube(self.obj_pos[obj_ind][0],
-                               self.obj_pos[obj_ind][1],
-                               1, 80)
-            if count > 260:
-                self.draw_cube(self.obj_pos[obj_ind][0],
-                               self.obj_pos[obj_ind][1],
-                               2, 140)
+
+    def draw_obs(self, y, x, simple_colouring = False):
+        if simple_colouring:
+            self.draw_cube(y, x, 0, 255)
+            if x > self.map_wid / 2:
+                self.draw_cube(y, x, 1, 80)
+            if y > self.map_hei / 2:
+                self.draw_cube(y, x, 2, 140)
+        else:
+            self.draw_cube(y, x, 0, randint(150, 255))        
+            self.draw_cube(y, x, 1, randint(100, 150))        
+            self.draw_cube(y, x, 2, randint(0, 90)) 
 
     def draw_new(self): # erase old bot tgt & draw new tgt
         # black old bot
