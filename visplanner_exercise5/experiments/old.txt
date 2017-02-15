@@ -1,0 +1,700 @@
+run 1, test 1
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+0.2
+Garbage collected.
+Garbage collected.
+run 1, test 2
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+0.5
+Garbage collected.
+Garbage collected.
+run 1, test 3
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+0.25
+Garbage collected.
+Garbage collected.
+run 1, test 4
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+0.333333333333
+Garbage collected.
+Garbage collected.
+run 1, test 5
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+0.357142857143
+Garbage collected.
+Garbage collected.
+run 1, test 6
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+0.416666666667
+Garbage collected.
+Garbage collected.
+run 1, test 7
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+0.1
+Garbage collected.
+Garbage collected.
+run 1, test 8
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+0.25
+Garbage collected.
+Garbage collected.
+run 1, test 9
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+0.384615384615
+Garbage collected.
+Garbage collected.
+run 1, test 10
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+0.1
+Garbage collected.
+Garbage collected.
+run 2, test 1
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+0.571428571429
+Garbage collected.
+Garbage collected.
+run 2, test 2
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+0.416666666667
+Garbage collected.
+Garbage collected.
+run 2, test 3
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+0.2
+Garbage collected.
+Garbage collected.
+run 2, test 4
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+0.533333333333
+Garbage collected.
+Garbage collected.
+run 2, test 5
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+0.363636363636
+Garbage collected.
+Garbage collected.
+run 2, test 6
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+0.333333333333
+Garbage collected.
+Garbage collected.
+run 2, test 7
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+0.1
+Garbage collected.
+Garbage collected.
+run 2, test 8
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+0.416666666667
+Garbage collected.
+Garbage collected.
+run 2, test 9
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+0.461538461538
+Garbage collected.
+Garbage collected.
+run 2, test 10
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+0.416666666667
+Garbage collected.
+Garbage collected.
+run 3, test 1
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+0.363636363636
+Garbage collected.
+Garbage collected.
+run 3, test 2
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+0.272727272727
+Garbage collected.
+Garbage collected.
+run 3, test 3
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+0.2
+Garbage collected.
+Garbage collected.
+run 3, test 4
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+0.333333333333
+Garbage collected.
+Garbage collected.
+run 3, test 5
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+0.272727272727
+Garbage collected.
+Garbage collected.
+run 3, test 6
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+0.333333333333
+Garbage collected.
+Garbage collected.
+run 3, test 7
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+0.1
+Garbage collected.
+Garbage collected.
+run 3, test 8
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+0.272727272727
+Garbage collected.
+Garbage collected.
+run 3, test 9
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+0.461538461538
+Garbage collected.
+Garbage collected.
+run 3, test 10
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+0.272727272727
+Garbage collected.
+Garbage collected.
+run 4, test 1
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+0.384615384615
+Garbage collected.
+Garbage collected.
+run 4, test 2
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+0.25
+Garbage collected.
+Garbage collected.
+run 4, test 3
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+0.333333333333
+Garbage collected.
+Garbage collected.
+run 4, test 4
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+0.461538461538
+Garbage collected.
+Garbage collected.
+run 4, test 5
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+0.363636363636
+Garbage collected.
+Garbage collected.
+run 4, test 6
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+0.333333333333
+Garbage collected.
+Garbage collected.
+run 4, test 7
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+0.384615384615
+Garbage collected.
+Garbage collected.
+run 4, test 8
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+0.333333333333
+Garbage collected.
+Garbage collected.
+run 4, test 9
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+0.181818181818
+Garbage collected.
+Garbage collected.
+run 4, test 10
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+0.272727272727
+Garbage collected.
+Garbage collected.
+run 5, test 1
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+0.333333333333
+Garbage collected.
+Garbage collected.
+run 5, test 2
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+0.461538461538
+Garbage collected.
+Garbage collected.
+run 5, test 3
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+0.461538461538
+Garbage collected.
+Garbage collected.
+run 5, test 4
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+0.0
+Garbage collected.
+Garbage collected.
+run 5, test 5
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+0.461538461538
+Garbage collected.
+Garbage collected.
+run 5, test 6
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+0.272727272727
+Garbage collected.
+Garbage collected.
+run 5, test 7
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+0.25
+Garbage collected.
+Garbage collected.
+run 5, test 8
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+0.25
+Garbage collected.
+Garbage collected.
+run 5, test 9
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+0.461538461538
+Garbage collected.
+Garbage collected.
+run 5, test 10
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+0.461538461538
+Garbage collected.
+Garbage collected.
+run 6, test 1
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+0.0
+Garbage collected.
+Garbage collected.
+run 6, test 2
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+0.384615384615
+Garbage collected.
+Garbage collected.
+run 6, test 3
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+0.384615384615
+Garbage collected.
+Garbage collected.
+run 6, test 4
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+0.307692307692
+Garbage collected.
+Garbage collected.
+run 6, test 5
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+0.25
+Garbage collected.
+Garbage collected.
+run 6, test 6
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+0.0
+Garbage collected.
+Garbage collected.
+run 6, test 7
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+0.428571428571
+Garbage collected.
+Garbage collected.
+run 6, test 8
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+0.333333333333
+Garbage collected.
+Garbage collected.
+run 6, test 9
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+0.1
+Garbage collected.
+Garbage collected.
+run 6, test 10
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+0.272727272727
+Garbage collected.
+Garbage collected.
+run 7, test 1
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+0.1
+Garbage collected.
+Garbage collected.
+run 7, test 2
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+0.363636363636
+Garbage collected.
+Garbage collected.
+run 7, test 3
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+0.333333333333
+Garbage collected.
+Garbage collected.
+run 7, test 4
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+0.5
+Garbage collected.
+Garbage collected.
+run 7, test 5
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+0.25
+Garbage collected.
+Garbage collected.
+run 7, test 6
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+0.363636363636
+Garbage collected.
+Garbage collected.
+run 7, test 7
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+0.272727272727
+Garbage collected.
+Garbage collected.
+run 7, test 8
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+0.363636363636
+Garbage collected.
+Garbage collected.
+run 7, test 9
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+0.416666666667
+Garbage collected.
+Garbage collected.
+run 7, test 10
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+0.1
+Garbage collected.
+Garbage collected.
