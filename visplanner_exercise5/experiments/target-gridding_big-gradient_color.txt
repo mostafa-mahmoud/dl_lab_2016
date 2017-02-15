@@ -1,0 +1,770 @@
+run 1, test 1
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+Accuracy, Distance accuracy
+0.75 0.783653846154
+Garbage collected.
+Garbage collected.
+run 1, test 2
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+Accuracy, Distance accuracy
+0.764705882353 0.786205209735
+Garbage collected.
+Garbage collected.
+run 1, test 3
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+Accuracy, Distance accuracy
+0.571428571429 0.671234647705
+Garbage collected.
+Garbage collected.
+run 1, test 4
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+Accuracy, Distance accuracy
+0.823529411765 0.862283737024
+Garbage collected.
+Garbage collected.
+run 1, test 5
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+Accuracy, Distance accuracy
+0.461538461538 0.56449704142
+Garbage collected.
+Garbage collected.
+run 1, test 6
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+Accuracy, Distance accuracy
+0.647058823529 0.725791855204
+Garbage collected.
+Garbage collected.
+run 1, test 7
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+Accuracy, Distance accuracy
+0.823529411765 0.894117647059
+Garbage collected.
+Garbage collected.
+run 1, test 8
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+Accuracy, Distance accuracy
+0.736842105263 0.8
+Garbage collected.
+Garbage collected.
+run 1, test 9
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+Accuracy, Distance accuracy
+0.866666666667 0.881333333333
+Garbage collected.
+Garbage collected.
+run 1, test 10
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+Accuracy, Distance accuracy
+0.416666666667 0.579901960784
+Garbage collected.
+Garbage collected.
+run 2, test 1
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+Accuracy, Distance accuracy
+0.833333333333 0.869934640523
+Garbage collected.
+Garbage collected.
+run 2, test 2
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+Accuracy, Distance accuracy
+0.6 0.666666666667
+Garbage collected.
+Garbage collected.
+run 2, test 3
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+Accuracy, Distance accuracy
+0.8 0.817699237699
+Garbage collected.
+Garbage collected.
+run 2, test 4
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+Accuracy, Distance accuracy
+0.615384615385 0.649771309771
+Garbage collected.
+Garbage collected.
+run 2, test 5
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+Accuracy, Distance accuracy
+0.8 0.826666666667
+Garbage collected.
+Garbage collected.
+run 2, test 6
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+Accuracy, Distance accuracy
+0.692307692308 0.738461538462
+Garbage collected.
+Garbage collected.
+run 2, test 7
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+Accuracy, Distance accuracy
+0.571428571429 0.621234647705
+Garbage collected.
+Garbage collected.
+run 2, test 8
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+Accuracy, Distance accuracy
+0.6875 0.738304848967
+Garbage collected.
+Garbage collected.
+run 2, test 9
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+Accuracy, Distance accuracy
+0.666666666667 0.705723370429
+Garbage collected.
+Garbage collected.
+run 2, test 10
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+Accuracy, Distance accuracy
+0.466666666667 0.517073906486
+Garbage collected.
+Garbage collected.
+run 3, test 1
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+Accuracy, Distance accuracy
+0.666666666667 0.76
+Garbage collected.
+Garbage collected.
+run 3, test 2
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+Accuracy, Distance accuracy
+0.5 0.631318681319
+Garbage collected.
+Garbage collected.
+run 3, test 3
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+Accuracy, Distance accuracy
+0.933333333333 0.937254901961
+Garbage collected.
+Garbage collected.
+run 3, test 4
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+Accuracy, Distance accuracy
+0.6875 0.723557692308
+Garbage collected.
+Garbage collected.
+run 3, test 5
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+Accuracy, Distance accuracy
+0.1 0.391764705882
+Garbage collected.
+Garbage collected.
+run 3, test 6
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+Accuracy, Distance accuracy
+0.833333333333 0.877777777778
+Garbage collected.
+Garbage collected.
+run 3, test 7
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+Accuracy, Distance accuracy
+0.6875 0.7325
+Garbage collected.
+Garbage collected.
+run 3, test 8
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+Accuracy, Distance accuracy
+0.538461538462 0.646153846154
+Garbage collected.
+Garbage collected.
+run 3, test 9
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+Accuracy, Distance accuracy
+0.6 0.733333333333
+Garbage collected.
+Garbage collected.
+run 3, test 10
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+Accuracy, Distance accuracy
+0.571428571429 0.625630252101
+Garbage collected.
+Garbage collected.
+run 4, test 1
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+Accuracy, Distance accuracy
+0.8125 0.828676470588
+Garbage collected.
+Garbage collected.
+run 4, test 2
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+Accuracy, Distance accuracy
+0.571428571429 0.642857142857
+Garbage collected.
+Garbage collected.
+run 4, test 3
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+Accuracy, Distance accuracy
+0.538461538462 0.669230769231
+Garbage collected.
+Garbage collected.
+run 4, test 4
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+Accuracy, Distance accuracy
+0.6875 0.796153846154
+Garbage collected.
+Garbage collected.
+run 4, test 5
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+Accuracy, Distance accuracy
+0.5 0.616666666667
+Garbage collected.
+Garbage collected.
+run 4, test 6
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+Accuracy, Distance accuracy
+0.8 0.842564102564
+Garbage collected.
+Garbage collected.
+run 4, test 7
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+Accuracy, Distance accuracy
+0.666666666667 0.703921568627
+Garbage collected.
+Garbage collected.
+run 4, test 8
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+Accuracy, Distance accuracy
+0.571428571429 0.65
+Garbage collected.
+Garbage collected.
+run 4, test 9
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+Accuracy, Distance accuracy
+0.5 0.588461538462
+Garbage collected.
+Garbage collected.
+run 4, test 10
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+Accuracy, Distance accuracy
+0.571428571429 0.644091790562
+Garbage collected.
+Garbage collected.
+run 5, test 1
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+Accuracy, Distance accuracy
+0.416666666667 0.523820879703
+Garbage collected.
+Garbage collected.
+run 5, test 2
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+Accuracy, Distance accuracy
+0.571428571429 0.625630252101
+Garbage collected.
+Garbage collected.
+run 5, test 3
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+Accuracy, Distance accuracy
+0.461538461538 0.547511312217
+Garbage collected.
+Garbage collected.
+run 5, test 4
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+Accuracy, Distance accuracy
+0.571428571429 0.645604395604
+Garbage collected.
+Garbage collected.
+run 5, test 5
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+Accuracy, Distance accuracy
+0.384615384615 0.504524886878
+Garbage collected.
+Garbage collected.
+run 5, test 6
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+Accuracy, Distance accuracy
+0.8125 0.841176470588
+Garbage collected.
+Garbage collected.
+run 5, test 7
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+Accuracy, Distance accuracy
+0.454545454545 0.56958986959
+Garbage collected.
+Garbage collected.
+run 5, test 8
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+Accuracy, Distance accuracy
+0.722222222222 0.766515837104
+Garbage collected.
+Garbage collected.
+run 5, test 9
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+Accuracy, Distance accuracy
+0.722222222222 0.76699169758
+Garbage collected.
+Garbage collected.
+run 5, test 10
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+Accuracy, Distance accuracy
+0.736842105263 0.808359133127
+Garbage collected.
+Garbage collected.
+run 6, test 1
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+Accuracy, Distance accuracy
+0.888888888889 0.901501501502
+Garbage collected.
+Garbage collected.
+run 6, test 2
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+Accuracy, Distance accuracy
+0.666666666667 0.729230769231
+Garbage collected.
+Garbage collected.
+run 6, test 3
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+Accuracy, Distance accuracy
+0.882352941176 0.914027149321
+Garbage collected.
+Garbage collected.
+run 6, test 4
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+Accuracy, Distance accuracy
+0.5 0.604901960784
+Garbage collected.
+Garbage collected.
+run 6, test 5
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+Accuracy, Distance accuracy
+0.692307692308 0.708682891036
+Garbage collected.
+Garbage collected.
+run 6, test 6
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+Accuracy, Distance accuracy
+0.571428571429 0.62268907563
+Garbage collected.
+Garbage collected.
+run 6, test 7
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+Accuracy, Distance accuracy
+0.571428571429 0.657142857143
+Garbage collected.
+Garbage collected.
+run 6, test 8
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+Accuracy, Distance accuracy
+0.733333333333 0.793333333333
+Garbage collected.
+Garbage collected.
+run 6, test 9
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+Accuracy, Distance accuracy
+0.823529411765 0.836470588235
+Garbage collected.
+Garbage collected.
+run 6, test 10
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+Accuracy, Distance accuracy
+0.454545454545 0.568983957219
+Garbage collected.
+Garbage collected.
+run 7, test 1
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+Accuracy, Distance accuracy
+0.363636363636 0.487165775401
+Garbage collected.
+Garbage collected.
+run 7, test 2
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+Accuracy, Distance accuracy
+0.823529411765 0.870588235294
+Garbage collected.
+Garbage collected.
+run 7, test 3
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+Accuracy, Distance accuracy
+0.416666666667 0.554901960784
+Garbage collected.
+Garbage collected.
+run 7, test 4
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+Accuracy, Distance accuracy
+0.583333333333 0.634803921569
+Garbage collected.
+Garbage collected.
+run 7, test 5
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+Accuracy, Distance accuracy
+0.642857142857 0.718487394958
+Garbage collected.
+Garbage collected.
+run 7, test 6
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+Accuracy, Distance accuracy
+0.416666666667 0.525
+Garbage collected.
+Garbage collected.
+run 7, test 7
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+Accuracy, Distance accuracy
+0.75 0.7875
+Garbage collected.
+Garbage collected.
+run 7, test 8
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+Accuracy, Distance accuracy
+0.714285714286 0.768487394958
+Garbage collected.
+Garbage collected.
+run 7, test 9
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+Accuracy, Distance accuracy
+0.6 0.693152337858
+Garbage collected.
+Garbage collected.
+run 7, test 10
+
+states & labels loaded.
+('states stacked w/ history of', 4)
+train & valid data splited.
+Loaded model from disk
+0
+Accuracy, Distance accuracy
+0.714285714286 0.773359073359
+Garbage collected.
+Garbage collected.
