@@ -66,11 +66,11 @@ class Simulator:
                     self.fre_pos[fre_ind][0] = y
                     self.fre_pos[fre_ind][1] = x
                     fre_ind += 1
-        grid_shape = map(lambda x: (x + self.gridding_length - 1) / self.gridding_length, (self.map_hei, self.map_wid))
+        grid_shape = list(map(lambda x: int((x + self.gridding_length - 1) / self.gridding_length), (self.map_hei, self.map_wid)))
         grid_pos = [[[] for j in range(grid_shape[1])] for i in range(grid_shape[0])]
         for i, (x, y) in enumerate(self.fre_pos):
             k = y / self.gridding_length * self.map_wid + x / self.gridding_length
-            grid_pos[x / self.gridding_length][y / self.gridding_length].append(i)
+            grid_pos[int(x / self.gridding_length)][int(y / self.gridding_length)].append(i)
         self.grid_pos = []
         for row in grid_pos:
             for idxs in row:
@@ -289,7 +289,7 @@ class Simulator:
                 # Choose from specific grid if training
                 grid = choice(self.grid_pos)
                 if random() < 0.2:
-                    choose_tgt_ind = grid[len(grid) / 2]
+                    choose_tgt_ind = grid[int(len(grid) / 2)]
                 else:
                     choose_tgt_ind = choice(grid)
             self.obj_pos[self.tgt_ind][0] = self.fre_pos[choose_tgt_ind][0]
