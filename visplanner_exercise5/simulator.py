@@ -211,9 +211,21 @@ class Simulator:
             if y > self.map_hei / 2:
                 self.draw_cube(y, x, 2, 140)
         else:
-            self.draw_cube(y, x, 0, randint(150, 255))        
-            self.draw_cube(y, x, 1, randint(100, 150))        
-            self.draw_cube(y, x, 2, randint(0, 90)) 
+            def get_randrange(ratio, beg, end, std=20):
+                pos = (end - beg) * ratio + beg
+                res = int(np.random.normal(pos, std))
+                res = max(res, beg)
+                res = min(res, end)
+                # print(ratio, beg, end, ':', res)
+                return res
+
+            diag = float(x + y) / float(self.map_hei + self.map_wid)
+            #self.draw_cube(y, x, 0, randint(150, 255))
+            #self.draw_cube(y, x, 1, randint(100, 150))
+            #self.draw_cube(y, x, 2, randint(0, 90))
+            self.draw_cube(y, x, 0, get_randrange(diag, 150, 255))
+            self.draw_cube(y, x, 1, get_randrange(diag, 0, 180))
+            self.draw_cube(y, x, 2, get_randrange(diag, 20, 80))
 
     def draw_new(self): # erase old bot tgt & draw new tgt
         # black old bot
