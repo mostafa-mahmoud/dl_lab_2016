@@ -8,4 +8,8 @@
 *.json
 *.ckpt
 *.ckpt.meta
+*.nav
+*.out
+*.snm
+*.toc
 */data
