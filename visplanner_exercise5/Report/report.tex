@@ -137,9 +137,9 @@ The variation of this problem that we attempt to solve in this assignment is sol
 \end{itemize}
 
 \section{Approach}
-We had 3 different ideas to change in order to attempt improving the results; namely 'knowing the destination', 'getting landmarks' and 'mark districts in the map'. The results we previously had was an accuracy of 31\% of solving given map given that the target is changing randomly.
+We had 3 different ideas to change in order to attempt improving the results; namely 'knowing the destination', 'getting landmarks' and 'mark districts in the map'. The results we previously had was an accuracy of 31\% of solving the given map given that the target is changing randomly.
 \subsection{Memorizing the target}
-The idea here was to basically make the agent have an idea how the target will be like while looking for it, the same idea is used in every day life, one needs to know how the destination is like before going in order to easily identify it.
+The idea here was to basically make the agent have an idea of how the target will be like while looking for it, the same idea is used in every day life, one needs to know how the destination is like before going in order to easily identify it.
 We implement this by storing an extra state (along with the history of memorized states) of the local view of the target, and maintaining that it will always be identified as the target view.
 
 \subsection{Coloring the walls}
@@ -151,14 +151,14 @@ Similarly here we start to color the walls depending on different regions. We ha
 \end{figure}
 
 \subsubsection{Simple coloring}
-This divides the map into 4 equal regions, and colors each one of them with a different color.
+This approach divides the map into 4 equal regions, and colors each one of them with a different color.
 \begin{figure}
     \centerline{\includegraphics[width=0.35\linewidth]{simple.png}}
     \caption{Simple colouring} \label{fig2}
 \end{figure}
 
 \subsubsection{Gradient coloring}
-This colors the walls by a gradient color (with a small random variation) with a gradient through out the diagonal of the map.
+This approach colors the walls by a gradient color (with a small random variation) with a gradient through out the diagonal of the map.
 
 \begin{figure}
     \centerline{\includegraphics[width=0.35\linewidth]{gradient.png}}
@@ -173,9 +173,9 @@ This colors the walls by a gradient color (with a small random variation) with a
 \end{itemize}
 
 \subsection{Gridding}
-The idea here was to divide the map into a set of grids and instead of training he changing target randomly across the map.
+The idea here was to divide the map into a set of grids and instead of training the changing target randomly across the map.
 We would make sure that each grid in the map is sampled equally. So that we don't end up knowing vacant areas more than tight areas.
-We sample inside each grid either a representative of that grid (the middle element) with probability 20\% or randomly from the grid otherwise. The combination of both will ensure that we "know" enough about the grid (even if we didn't reach the target exactly, we can still get close), and the randomization part in order not to be fixed on a specific place (thus missing {\it on purpose} potential targets while testing).
+We sample inside each grid either a representative of that grid (the middle element) with probability of 20\% or randomly from the grid otherwise. The combination of both will ensure that we "know" enough about the grid (even if we didn't reach the target exactly, we can still get close), and the randomization part in order not to be fixed on a specific place (thus missing {\it on purpose} potential targets while testing).
 
 \subsubsection{Distance Accuracy}
 In order to test that we got "close" enough to the target we computed (in addition to the already implemented accuracy) the distance accuracy.
@@ -203,7 +203,7 @@ We ran 8 experiments; for each we train 7 times and test 10 times for each of th
 \end{center}
 
 \subsection{Big map}
-A new map of size $50 \times 50$ with a local view $9 \times 9$
+A new map of size $50 \times 50$ with a local view of $9 \times 9$.
 We ran 4 experiments; for each we train 2 times and test 10 times for each of them, and these are the average results.
 The state size of this map was much bigger than the other maps which showed some restrictions while experimenting.
 Unfortunately we couldn't run more experiments due to lack of resources: time, quota for saving tables and RAM memory for loading large tables.
