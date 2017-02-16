@@ -81,9 +81,11 @@
 
 \section{Storing target}
 \begin{frame}{Adding target to state}
-In addition to the history of the last 4 states, we save an additional state of the local view of the target position.
-Average accuracy with saving target: 70\%
-Average accuracy : 31\%
+\begin{itemize}
+\item Looking up the destination on Google maps before going usually helps finding it.
+\item In addition to the history of the last 4 states, we save an additional state of the local view of the target position.
+\item Average accuracy with saving target: 70\% Average accuracy : 31\%
+\end{itemize}
 \end{frame}
 
 \section{Coloring}
@@ -123,13 +125,14 @@ Average accuracy : 31\%
 \begin{itemize}
     \item We tried to divide the map into grids of size $g$ while sampling target locations (only during training).
     \item The reason is to ensure that the density of distribution across the map is the same.
-    \item However it turns out that gridding didn't affect the results that much.
+    \item Gridding didn't affect the results that much for small maps.
+    \item Gridding shows improvements on big maps.
 \end{itemize}
 \end{frame}
 
 \section{Final results}
 \begin{frame}
-We ran 8 experiments; for each we train 7 times and test 10 for each of them, and these are the average results.
+We ran 8 experiments; for each we train 7 times and test 10 times for each of them, and these are the average results.
 \begin{center}
     \begin{tabular}{| l | l | l | l | l |}
     \hline
@@ -146,39 +149,6 @@ We ran 8 experiments; for each we train 7 times and test 10 for each of them, an
 \end{center}
 \end{frame}
 
-\iffalse
-\begin{frame}{Recall}
-\begin{figure}
-        \includegraphics{train_test.png}
-        \caption{Train and Test recall}
-    \label{fig1}
-\end{figure}
-\end{frame}
-
-\begin{frame}{Top 200 Recall}
-\begin{figure}
-        \includegraphics{recall200.png}
-        \caption{Top 200 Recall}
-    \label{fig1}
-\end{figure}
-\end{frame}
-
-\begin{frame}{MRR, nDCG @ 5}
-\begin{figure}
-        \includegraphics{mrrndcg5.png}
-        \caption{MRR, nDCG @ 5}
-    \label{fig1}
-\end{figure}
-\end{frame}
-
-\begin{frame}{MRR, nDCG @ 10}
-\begin{figure}
-        \includegraphics{mrrndcg10.png}
-        \caption{MRR, nDCG @ 10}
-    \label{fig1}
-\end{figure}
-\end{frame}
-\fi
 \begin{frame}
 We also tried a bigger map
 \begin{figure}
@@ -187,5 +157,28 @@ We also tried a bigger map
 \end{figure}
 \end{frame}
 
+\begin{frame}
+For the big map, we ran 4 experiments; for each we train 2 times and test 10 times for each of them, and these are the average results.
+\begin{center}
+    \begin{tabular}{| l | l | l | l | l |}
+    \hline
+    Target & Gridding & Color & Accuracy & Distance Accuracy \\ \hline
+    No & No & No & 31\% & - \\ \hline
+    Yes & No & Simple & 57\% & - \\ \hline
+    Yes & Big& Simple & 62\% & 65\% \\ \hline
+    Yes & Big & Gradient & 49\% & 55\% \\ \hline
+    \end{tabular}
+\end{center}
+\end{frame}
+
+\begin{frame}{Conclusion and Future Work}
+\begin{itemize}
+    \item Knowing the local view of the target helps the agent strongly to find the target.
+    \item Here we can conclude that Gridding is useful only for the big maps.
+    \item Coloring the walls helps the agent to identify parts of the map as landmarks.
+\end{itemize}
+In the future we can try to find better coloring strategies.
+
+\end{frame}
 
 \end{document}
