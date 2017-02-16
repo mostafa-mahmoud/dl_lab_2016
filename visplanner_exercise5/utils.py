@@ -3,7 +3,7 @@ import numpy as np
 class Options:
     #
     disp_on = False # you might want to set it to False for speed
-    map_ind = 0
+    map_ind = 3
     change_tgt = True # False
     states_fil = "states.csv"
     labels_fil = "labels.csv"
@@ -33,6 +33,12 @@ class Options:
         tgt_y = 12
         tgt_x = 11
         early_stop = 50
+    elif map_ind == 3:
+        cub_siz = 4
+        pob_siz = 9
+        tgt_y = 7
+        tgt_x = 43
+        early_stop = 100
     state_siz = (pob_siz * cub_siz) ** 2 # when use pob as input
     if change_tgt:
         tgt_y = None
