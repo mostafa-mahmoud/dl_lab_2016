@@ -71,16 +71,24 @@
 \end{figure}
 \end{frame}
 
-\section{Old results}
-\begin{frame}{old results}
+\begin{frame}{Old results}
+\begin{itemize}
+    \item The A* star was our baseline for training, it always solves the problem.
+    \item The accuracy of our agent without changing the target was 100\%.
+    \item The accuracy of our agent with changing target was on average 31\%.
+\end{itemize}
 \end{frame}
 
 \section{Storing target}
 \begin{frame}{Adding target to state}
+In addition to the history of the last 4 states, we save an additional state of the local view of the target position.
+Average accuracy with saving target: 70\%
+Average accuracy : 31\%
 \end{frame}
 
 \section{Coloring}
 \begin{frame}{Simple coloring}
+Dividing the wall into "districts" with distinct colors.\\
 Average accuracy with colouring: 81\%
 
 Average accuracy : 31\%
@@ -92,7 +100,8 @@ Average accuracy : 31\%
 \end{frame}
 
 \begin{frame}{Gradient coloring}
-Average accuracy with colouring: 81\%
+Coloring the walls with a gradient across the whole map. \\
+Average accuracy with colouring: 66\%
 
 Average accuracy : 31\%
 \begin{figure}
@@ -104,11 +113,19 @@ Average accuracy : 31\%
 
 \section{Gridding}
 \begin{frame}{Distance accuracy}
+    \begin{itemize}
+        \item Instead of giving a score 0 for not reaching the target, we use the distance accuracy function: $$\frac{1}{1 + {\lfloor d/g \rfloor}^2}$$ where $d$ is the distance from the target and $g$ is a constant.
+        \item The idea is to give partial credit if the agent got close to the target even if it didn't reach it. 
+    \end{itemize}
 \end{frame}
 
 \begin{frame}{Gridding}
+\begin{itemize}
+    \item We tried to divide the map into grids of size $g$ while sampling target locations (only during training).
+    \item The reason is to ensure that the density of distribution across the map is the same.
+    \item However it turns out that gridding didn't affect the results that much.
+\end{itemize}
 \end{frame}
-
 
 \section{Final results}
 \begin{frame}
