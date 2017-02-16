@@ -129,6 +129,21 @@ Average accuracy : 31\%
 
 \section{Final results}
 \begin{frame}
+We ran 8 experiments; for each we train 7 times and test 10 for each of them, and these are the average results.
+\begin{center}
+    \begin{tabular}{| l | l | l | l | l |}
+    \hline
+    Target & Gridding & Color & Accuracy & Distance Accuracy \\ \hline
+    No & No & No & 31\% & - \\ \hline
+    Yes & No & No & 70\% & - \\ \hline
+    Yes & No & Simple & 80\% & - \\ \hline
+    Yes & No & Gradient & 66\% & - \\ \hline
+    Yes & Yes & Simple & 79\% & 81\% \\ \hline
+    Yes & Big& Simple & 77\% & 82\% \\ \hline
+    Yes & Yes & No & 70\% & 72\% \\ \hline
+    Yes & Big & Gradient & 64\% & 71\% \\ \hline
+    \end{tabular}
+\end{center}
 \end{frame}
 
 \iffalse
