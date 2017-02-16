@@ -1,3 +1,4 @@
+import sys
 import numpy as np
 import tensorflow as tf
 import matplotlib.pyplot as plt
@@ -185,7 +186,7 @@ sess.run(tf.initialize_all_variables())
 # this is just an example and you might want to change it
 steps = 1 * 10**6
 epi_step = 0
-epi_use_small = 10000
+epi_use_small = 100000
 nepisodes = 0
 PR_EPSILON = opt.action_epsilon_big
 
@@ -257,8 +258,9 @@ for step in range(steps):
     avg_siz += 1
     avg_loss += err
     min_loss = min(min_loss, err)
-    if step % 100 == 0:
-        print("Step %d : loss %.3f, min loss: %.3f" % (step, avg_loss / avg_siz, min_loss))
+    if (step + 1) % 100 == 0:
+        print >> sys.stdout, ("Step %d : loss %.3f, min loss: %.3f" % (step + 1, avg_loss / avg_siz, min_loss))
+        print >> sys.stderr, ("eStep %d : loss %.3f, min loss: %.3f" % (step + 1, avg_loss / avg_siz, min_loss))
         avg_loss, avg_siz, min_loss = 0, 0, float("inf")
     if opt.disp_on:
         if win_all is None:
@@ -277,4 +279,5 @@ for step in range(steps):
 # TODO. done.
 saver = tf.train.Saver()
 save_path = saver.save(sess, "model.ckpt")
-print("Saved model to disk " + save_path)
+print >> sys.stdout, ("Saved model to disk " + save_path)
+print >> sys.stderr, ("eSaved model to disk " + save_path)

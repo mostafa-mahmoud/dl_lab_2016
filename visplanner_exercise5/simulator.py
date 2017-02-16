@@ -9,7 +9,7 @@ class Simulator:
 
     # basic funcs
 
-    def __init__(self, map_ind, cub_siz, pob_siz, act_num, gridding_length=3, testing=False):
+    def __init__(self, map_ind, cub_siz, pob_siz, act_num, gridding_length=6, testing=False):
         self.map_ind = map_ind
         self.cub_siz = cub_siz
         self.pob_siz = pob_siz

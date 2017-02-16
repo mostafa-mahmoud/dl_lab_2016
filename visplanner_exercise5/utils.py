@@ -2,9 +2,9 @@ import numpy as np
 
 class Options:
     #
-    disp_on = True # you might want to set it to False for speed
+    disp_on = False # you might want to set it to False for speed
     map_ind = 0
-    change_tgt = True #False
+    change_tgt = True # False
     states_fil = "states.csv"
     labels_fil = "labels.csv"
     targets_fil = "targets.csv"
@@ -42,7 +42,7 @@ class Options:
     # traing hyper params
     hist_len = 4
     minibatch_size  = 32
-    n_minibatches   = 500
+    n_minibatches   = 2000 # 500
     valid_size      = 500
     eval_nepisodes  = 10
 
